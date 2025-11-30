@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>맞춤 지원금 찾기</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -45,90 +44,22 @@
         button, input, select { font-family: inherit; }
         button { cursor: pointer; }
 
-        .chatbot-wrapper {
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        .chatbot-container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--white);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            max-height: calc(100vh - 32px);
-            max-height: calc(100dvh - 32px);
-        }
-
-        .chatbot-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px;
-            background: var(--gradient-primary);
-            color: var(--white);
-        }
-
-        .header-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+        .chatbot-wrapper { min-height: 100vh; min-height: 100dvh; display: flex; align-items: flex-start; justify-content: center; padding: 16px; }
+        .chatbot-container { width: 100%; max-width: 480px; background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); overflow: hidden; display: flex; flex-direction: column; max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); }
+        .chatbot-header { display: flex; align-items: center; gap: 16px; padding: 20px; background: var(--gradient-primary); color: var(--white); }
+        .header-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .header-icon svg { width: 28px; height: 28px; }
         .header-text { flex: 1; min-width: 0; }
         .header-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
         .header-subtitle { font-size: 0.813rem; opacity: 0.9; }
-
-        .reset-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            border-radius: var(--radius-sm);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        .reset-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .reset-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.15); border: none; border-radius: var(--radius-sm); color: var(--white); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .reset-btn:hover { background: rgba(255,255,255,0.25); }
         .reset-btn svg { width: 20px; height: 20px; }
-
-        .progress-wrap {
-            padding: 12px 20px;
-            background: var(--gray-50);
-            border-bottom: 1px solid var(--gray-100);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .progress-wrap { padding: 12px 20px; background: var(--gray-50); border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 12px; }
         .progress-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: var(--radius-full); overflow: hidden; }
         .progress-fill { height: 100%; background: var(--gradient-primary); border-radius: var(--radius-full); transition: width 0.4s ease; width: 0%; }
         .progress-text { font-size: 0.75rem; font-weight: 600; color: var(--gray-500); white-space: nowrap; }
-
-        .messages-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            scroll-behavior: smooth;
-            min-height: 320px;
-        }
-
+        .messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; scroll-behavior: smooth; min-height: 320px; }
         .message { display: flex; gap: 8px; max-width: 90%; animation: msgFadeIn 0.3s ease; }
         @keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .message.bot { align-self: flex-start; }
@@ -138,97 +69,46 @@
         .message.bot .message-bubble { background: var(--gray-100); color: var(--gray-800); border-top-left-radius: 4px; }
         .message.user { align-self: flex-end; flex-direction: row-reverse; }
         .message.user .message-bubble { background: var(--gradient-primary); color: var(--white); border-top-right-radius: 4px; padding: 10px 16px; }
-
         .typing-dots { display: flex; gap: 4px; padding: 14px 16px; }
         .typing-dots span { width: 8px; height: 8px; background: var(--gray-400); border-radius: 50%; animation: bounce 1.4s ease-in-out infinite; }
         .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
-
         .input-area { padding: 16px 20px 20px; background: var(--white); border-top: 1px solid var(--gray-100); }
         .options-grid { display: flex; flex-direction: column; gap: 8px; }
         .options-grid.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); }
         .options-grid.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
-
-        .option-btn {
-            background: var(--white);
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 14px 16px;
-            font-size: 0.938rem;
-            font-weight: 500;
-            color: var(--gray-700);
-            transition: var(--transition);
-            text-align: center;
-            line-height: 1.4;
-        }
+        .option-btn { background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 14px 16px; font-size: 0.938rem; font-weight: 500; color: var(--gray-700); transition: var(--transition); text-align: center; line-height: 1.4; }
         .option-btn:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
         .option-btn:active { transform: scale(0.98); }
         .option-btn.selected { border-color: var(--primary); background: var(--primary); color: var(--white); }
         .option-btn .sub-text { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 4px; }
         .option-btn.selected .sub-text { opacity: 0.9; }
-
         .option-btn.multi { position: relative; padding-left: 44px; text-align: left; }
         .option-btn.multi::before { content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 4px; transition: var(--transition); }
         .option-btn.multi.selected::before { background: var(--primary); border-color: var(--primary); }
         .option-btn.multi.selected::after { content: ''; position: absolute; left: 19px; top: 50%; transform: translateY(-60%) rotate(45deg); width: 5px; height: 10px; border: solid var(--white); border-width: 0 2px 2px 0; }
-
-        .confirm-btn {
-            width: 100%;
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--radius);
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--white);
-            transition: var(--transition);
-            margin-top: 8px;
-        }
+        .confirm-btn { width: 100%; background: var(--gradient-primary); border: none; border-radius: var(--radius); padding: 14px; font-size: 1rem; font-weight: 600; color: var(--white); transition: var(--transition); margin-top: 8px; }
         .confirm-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
         .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
         .select-wrap { display: flex; flex-direction: column; gap: 8px; }
-        .custom-select {
-            width: 100%;
-            padding: 14px 40px 14px 16px;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-size: 0.938rem;
-            color: var(--gray-700);
-            background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
-            background-size: 20px;
-            appearance: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+        .custom-select { width: 100%; padding: 14px 40px 14px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 0.938rem; color: var(--gray-700); background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center; background-size: 20px; appearance: none; cursor: pointer; transition: var(--transition); }
         .custom-select:focus { outline: none; border-color: var(--primary); }
-
         .birth-wrap { display: flex; flex-direction: column; gap: 16px; }
         .birth-section { display: flex; flex-direction: column; gap: 8px; }
         .birth-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); }
         .birth-row { display: flex; gap: 8px; align-items: center; }
         .birth-input-wrap { flex: 1; }
         .birth-input-wrap.year { flex: 1.5; }
-        .birth-input {
-            width: 100%;
-            padding: 14px 12px;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            text-align: center;
-            transition: var(--transition);
-            -moz-appearance: textfield;
-        }
+        .birth-input { width: 100%; padding: 14px 12px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 1rem; text-align: center; transition: var(--transition); -moz-appearance: textfield; }
         .birth-input::-webkit-outer-spin-button, .birth-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .birth-input:focus { outline: none; border-color: var(--primary); }
         .birth-input::placeholder { color: var(--gray-400); font-size: 0.875rem; }
         .birth-suffix { font-size: 0.875rem; color: var(--gray-500); flex-shrink: 0; width: 20px; }
         .gender-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-
         .result-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); }
         .result-modal.active { opacity: 1; visibility: visible; }
-        .modal-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+        .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
         .modal-content { position: relative; width: 100%; max-width: 500px; max-height: 85vh; background: var(--white); border-radius: var(--radius-xl) var(--radius-xl) 0 0; transform: translateY(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
         .result-modal.active .modal-content { transform: translateY(0); }
         .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--gray-100); }
@@ -237,16 +117,16 @@
         .close-btn:hover { background: var(--gray-200); }
         .close-btn svg { width: 20px; height: 20px; color: var(--gray-600); }
         .modal-body { flex: 1; overflow-y: auto; padding: 20px; }
-
         .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
         .stat-card { background: var(--gray-50); border-radius: var(--radius); padding: 16px; text-align: center; }
         .stat-card.highlight { background: var(--primary-50); }
         .stat-number { font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
         .stat-label { font-size: 0.813rem; color: var(--gray-600); }
-
         .result-list { display: flex; flex-direction: column; gap: 12px; }
-        .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px; transition: var(--transition); }
+        .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px; transition: var(--transition); position: relative; }
         .result-card:hover { border-color: var(--primary-100); box-shadow: var(--shadow-md); }
+        .result-card.recommended { border-color: #F59E0B; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); }
+        .result-card.recommended::before { content: '⭐ 추천'; position: absolute; top: -8px; right: 12px; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; font-size: 0.688rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full); }
         .result-card-header { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
         .result-badge { background: var(--primary); color: var(--white); font-size: 0.688rem; font-weight: 600; padding: 4px 8px; border-radius: var(--radius-sm); white-space: nowrap; }
         .result-title { font-size: 1rem; font-weight: 600; color: var(--gray-900); line-height: 1.4; flex: 1; min-width: 200px; }
@@ -255,12 +135,17 @@
         .result-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.875rem; font-weight: 600; color: var(--primary); text-decoration: none; }
         .result-link:hover { text-decoration: underline; }
         .result-link svg { width: 16px; height: 16px; }
-
         .no-result { text-align: center; padding: 48px 20px; }
         .no-result-icon { font-size: 3rem; margin-bottom: 16px; }
         .no-result-title { font-size: 1.125rem; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
         .no-result-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.5; }
-
+        .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+        .page-btn { width: 40px; height: 40px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); color: var(--gray-600); font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-50); }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
+        .page-btn svg { width: 18px; height: 18px; }
+        .page-numbers { display: flex; gap: 4px; }
         @media (max-width: 520px) {
             .chatbot-wrapper { padding: 0; }
             .chatbot-container { max-width: 100%; border-radius: 0; max-height: 100vh; max-height: 100dvh; }
@@ -271,8 +156,8 @@
             .message { max-width: 95%; }
             .modal-content { max-width: 100%; max-height: 90vh; }
             .options-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .page-btn { width: 36px; height: 36px; }
         }
-
         @media (min-width: 521px) {
             .chatbot-wrapper { align-items: center; padding: 24px; }
             .result-modal { align-items: center; }
@@ -284,209 +169,56 @@
     <div class="chatbot-wrapper">
         <div class="chatbot-container">
             <header class="chatbot-header">
-                <div class="header-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                    </svg>
-                </div>
+                <div class="header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
                 <div class="header-text">
                     <h1 class="header-title">맞춤 지원금 찾기</h1>
                     <p class="header-subtitle">몇 가지 질문에 답하면 받을 수 있는 지원금을 찾아드려요</p>
                 </div>
-                <button class="reset-btn" id="resetBtn" title="처음부터 다시">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                        <path d="M3 3v5h5"/>
-                    </svg>
-                </button>
+                <button class="reset-btn" id="resetBtn" title="처음부터 다시"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
             </header>
-
-            <div class="progress-wrap">
-                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-                <span class="progress-text" id="progressText">시작하기</span>
-            </div>
-
+            <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><span class="progress-text" id="progressText">시작하기</span></div>
             <main class="messages-area" id="messagesArea"></main>
             <div class="input-area" id="inputArea"></div>
         </div>
     </div>
-
     <div class="result-modal" id="resultModal">
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
-            <div class="modal-header">
-                <h3>🎉 맞춤 지원금 검색 완료!</h3>
-                <button class="close-btn" id="closeBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 6L6 18M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
+            <div class="modal-header"><h3>🎉 맞춤 지원금 검색 완료!</h3><button class="close-btn" id="closeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
-
     <script>
     (function() {
         'use strict';
-
-        const CONFIG = {
-            API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
-            DEMO_MODE: false
-        };
-
+        const CONFIG = { API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev', DEMO_MODE: false, ITEMS_PER_PAGE: 20 };
         const Chatbot = {
-            state: { step: 0, answers: {}, isProcessing: false },
+            state: { step: 0, answers: {}, isProcessing: false, currentPage: 1, allServices: [], totalCount: 0 },
             elements: {},
-
+            priorityKeywords: {
+                'JA0101': ['예비부부', '난임', '신혼', '결혼'], 'JA0102': ['임신', '임산부', '출산'], 'JA0103': ['출산', '입양', '육아', '양육'],
+                'JA0201': ['영유아', '아동', '보육', '어린이집'], 'JA0301': ['장애', '장애인', '복지'], 'JA0302': ['보훈', '국가유공자', '참전'],
+                'JA0401': ['농업', '농민', '영농', '귀농'], 'JA0501': ['학생', '청소년', '교육'], 'JA0502': ['대학', '대학생', '학자금', '등록금'],
+                'JA0601': ['근로', '직장', '고용', '재직'], 'JA0602': ['구직', '실업', '취업', '일자리'],
+                'JA0701': ['다문화', '이주민', '결혼이민'], 'JA0702': ['북한이탈', '새터민', '탈북'], 'JA0703': ['한부모', '조손', '모자', '부자'],
+                'JA0704': ['1인가구', '단독', '독거'], 'JA0705': ['다자녀', '다둥이', '셋째'], 'JA0706': ['무주택', '주거', '임차', '전세', '월세'],
+                'youth': ['청년', '청소년', '19세', '29세', '34세', '39세'], 'senior': ['노인', '어르신', '65세', '고령'], 'child': ['아동', '어린이', '영유아', '미성년'],
+                'lowIncome': ['저소득', '차상위', '기초생활', '수급']
+            },
             questions: [
-                {
-                    id: 'intro',
-                    type: 'single',
-                    message: '안녕하세요! 👋\n맞춤 지원금을 찾아드릴게요.\n\n어떤 유형으로 검색하시겠어요?',
-                    options: [
-                        { value: 'personal', label: '👤 개인/가구' },
-                        { value: 'business', label: '🏪 소상공인' },
-                        { value: 'corp', label: '🏢 법인/기관' }
-                    ]
-                },
-                {
-                    id: 'region',
-                    type: 'region',
-                    condition: { intro: 'personal' },
-                    message: '거주하시는 지역을 선택해주세요.',
-                    progressText: '1/5 단계'
-                },
-                {
-                    id: 'birthGender',
-                    type: 'birthGender',
-                    condition: { intro: 'personal' },
-                    message: '생년월일과 성별을 알려주세요.',
-                    progressText: '2/5 단계'
-                },
-                {
-                    id: 'income',
-                    type: 'single',
-                    condition: { intro: 'personal' },
-                    message: '가구의 소득 수준을 선택해주세요.\n\n💡 2025년 기준중위소득 (4인가구 기준: 월 572만원)',
-                    options: [
-                        { value: '0~50', label: '50% 이하', sub: '월 286만원 이하' },
-                        { value: '51~75', label: '51~75%', sub: '월 286~429만원' },
-                        { value: '76~100', label: '76~100%', sub: '월 429~572만원' },
-                        { value: '101~200', label: '101~200%', sub: '월 572~1,145만원' },
-                        { value: '200~', label: '200% 초과', sub: '월 1,145만원 초과' }
-                    ],
-                    gridClass: 'cols-2',
-                    progressText: '3/5 단계'
-                },
-                {
-                    id: 'personalChar',
-                    type: 'multi',
-                    condition: { intro: 'personal' },
-                    message: '해당되는 개인 특성을 모두 선택해주세요.',
-                    options: [
-                        { value: 'JA0101', label: '예비부부/난임' },
-                        { value: 'JA0102', label: '임신부' },
-                        { value: 'JA0103', label: '출산/입양' },
-                        { value: 'JA0201', label: '영유아' },
-                        { value: 'JA0301', label: '장애인' },
-                        { value: 'JA0302', label: '국가보훈대상자' },
-                        { value: 'JA0401', label: '농업인' },
-                        { value: 'JA0501', label: '중/고등학생' },
-                        { value: 'JA0502', label: '대학생' },
-                        { value: 'JA0601', label: '근로자/직장인' },
-                        { value: 'JA0602', label: '구직자/실업자' },
-                        { value: 'JA9999', label: '해당없음' }
-                    ],
-                    gridClass: 'cols-2',
-                    progressText: '4/5 단계'
-                },
-                {
-                    id: 'familyChar',
-                    type: 'multi',
-                    condition: { intro: 'personal' },
-                    message: '해당되는 가구 특성을 모두 선택해주세요.',
-                    options: [
-                        { value: 'JA0701', label: '다문화가정' },
-                        { value: 'JA0702', label: '북한이탈주민' },
-                        { value: 'JA0703', label: '한부모/조손가정' },
-                        { value: 'JA0704', label: '1인 가구' },
-                        { value: 'JA0705', label: '다자녀 가구' },
-                        { value: 'JA0706', label: '무주택 세대' },
-                        { value: 'JA9999', label: '해당없음' }
-                    ],
-                    gridClass: 'cols-2',
-                    progressText: '5/5 단계'
-                },
-                {
-                    id: 'bizStatus',
-                    type: 'single',
-                    condition: { intro: 'business' },
-                    message: '현재 사업 상황을 선택해주세요.',
-                    options: [
-                        { value: 'ready', label: '🌱 예비 창업자' },
-                        { value: 'running', label: '🏃 영업 중' },
-                        { value: 'closing', label: '😢 폐업 예정' }
-                    ],
-                    progressText: '1/3 단계'
-                },
-                {
-                    id: 'bizRegion',
-                    type: 'region',
-                    condition: { intro: 'business' },
-                    message: '사업장 소재지를 선택해주세요.',
-                    progressText: '2/3 단계'
-                },
-                {
-                    id: 'bizType',
-                    type: 'single',
-                    condition: { intro: 'business' },
-                    message: '업종을 선택해주세요.',
-                    options: [
-                        { value: 'food', label: '🍽️ 음식점업' },
-                        { value: 'manufacture', label: '🏭 제조업' },
-                        { value: 'retail', label: '🛒 도소매업' },
-                        { value: 'service', label: '💼 서비스업' },
-                        { value: 'other', label: '📦 기타' }
-                    ],
-                    gridClass: 'cols-2',
-                    progressText: '3/3 단계'
-                },
-                {
-                    id: 'corpType',
-                    type: 'single',
-                    condition: { intro: 'corp' },
-                    message: '사업장 형태를 선택해주세요.',
-                    options: [
-                        { value: 'sme', label: '🏢 중소기업' },
-                        { value: 'welfare', label: '🏥 사회복지시설' },
-                        { value: 'org', label: '🏛️ 기관/단체' }
-                    ],
-                    progressText: '1/3 단계'
-                },
-                {
-                    id: 'corpRegion',
-                    type: 'region',
-                    condition: { intro: 'corp' },
-                    message: '사업장 소재지를 선택해주세요.',
-                    progressText: '2/3 단계'
-                },
-                {
-                    id: 'corpBizType',
-                    type: 'single',
-                    condition: { intro: 'corp' },
-                    message: '업종을 선택해주세요.',
-                    options: [
-                        { value: 'manufacture', label: '🏭 제조업' },
-                        { value: 'agri', label: '🌾 농림어업' },
-                        { value: 'it', label: '💻 정보통신업' },
-                        { value: 'other', label: '📦 기타' }
-                    ],
-                    gridClass: 'cols-2',
-                    progressText: '3/3 단계'
-                }
+                { id: 'intro', type: 'single', message: '안녕하세요! 👋\n맞춤 지원금을 찾아드릴게요.\n\n어떤 유형으로 검색하시겠어요?', options: [{ value: 'personal', label: '👤 개인/가구' }, { value: 'business', label: '🏪 소상공인' }, { value: 'corp', label: '🏢 법인/기관' }] },
+                { id: 'region', type: 'region', condition: { intro: 'personal' }, message: '거주하시는 지역을 선택해주세요.', progressText: '1/5 단계' },
+                { id: 'birthGender', type: 'birthGender', condition: { intro: 'personal' }, message: '생년월일과 성별을 알려주세요.', progressText: '2/5 단계' },
+                { id: 'income', type: 'single', condition: { intro: 'personal' }, message: '가구의 소득 수준을 선택해주세요.\n\n💡 2025년 기준중위소득 (4인가구 기준: 월 572만원)', options: [{ value: '0~50', label: '50% 이하', sub: '월 286만원 이하' }, { value: '51~75', label: '51~75%', sub: '월 286~429만원' }, { value: '76~100', label: '76~100%', sub: '월 429~572만원' }, { value: '101~200', label: '101~200%', sub: '월 572~1,145만원' }, { value: '200~', label: '200% 초과', sub: '월 1,145만원 초과' }], gridClass: 'cols-2', progressText: '3/5 단계' },
+                { id: 'personalChar', type: 'multi', condition: { intro: 'personal' }, message: '해당되는 개인 특성을 모두 선택해주세요.', options: [{ value: 'JA0101', label: '예비부부/난임' }, { value: 'JA0102', label: '임신부' }, { value: 'JA0103', label: '출산/입양' }, { value: 'JA0201', label: '영유아' }, { value: 'JA0301', label: '장애인' }, { value: 'JA0302', label: '국가보훈대상자' }, { value: 'JA0401', label: '농업인' }, { value: 'JA0501', label: '중/고등학생' }, { value: 'JA0502', label: '대학생' }, { value: 'JA0601', label: '근로자/직장인' }, { value: 'JA0602', label: '구직자/실업자' }, { value: 'JA9999', label: '해당없음' }], gridClass: 'cols-2', progressText: '4/5 단계' },
+                { id: 'familyChar', type: 'multi', condition: { intro: 'personal' }, message: '해당되는 가구 특성을 모두 선택해주세요.', options: [{ value: 'JA0701', label: '다문화가정' }, { value: 'JA0702', label: '북한이탈주민' }, { value: 'JA0703', label: '한부모/조손가정' }, { value: 'JA0704', label: '1인 가구' }, { value: 'JA0705', label: '다자녀 가구' }, { value: 'JA0706', label: '무주택 세대' }, { value: 'JA9999', label: '해당없음' }], gridClass: 'cols-2', progressText: '5/5 단계' },
+                { id: 'bizStatus', type: 'single', condition: { intro: 'business' }, message: '현재 사업 상황을 선택해주세요.', options: [{ value: 'ready', label: '🌱 예비 창업자' }, { value: 'running', label: '🏃 영업 중' }, { value: 'closing', label: '😢 폐업 예정' }], progressText: '1/3 단계' },
+                { id: 'bizRegion', type: 'region', condition: { intro: 'business' }, message: '사업장 소재지를 선택해주세요.', progressText: '2/3 단계' },
+                { id: 'bizType', type: 'single', condition: { intro: 'business' }, message: '업종을 선택해주세요.', options: [{ value: 'food', label: '🍽️ 음식점업' }, { value: 'manufacture', label: '🏭 제조업' }, { value: 'retail', label: '🛒 도소매업' }, { value: 'service', label: '💼 서비스업' }, { value: 'other', label: '📦 기타' }], gridClass: 'cols-2', progressText: '3/3 단계' },
+                { id: 'corpType', type: 'single', condition: { intro: 'corp' }, message: '사업장 형태를 선택해주세요.', options: [{ value: 'sme', label: '🏢 중소기업' }, { value: 'welfare', label: '🏥 사회복지시설' }, { value: 'org', label: '🏛️ 기관/단체' }], progressText: '1/3 단계' },
+                { id: 'corpRegion', type: 'region', condition: { intro: 'corp' }, message: '사업장 소재지를 선택해주세요.', progressText: '2/3 단계' },
+                { id: 'corpBizType', type: 'single', condition: { intro: 'corp' }, message: '업종을 선택해주세요.', options: [{ value: 'manufacture', label: '🏭 제조업' }, { value: 'agri', label: '🌾 농림어업' }, { value: 'it', label: '💻 정보통신업' }, { value: 'other', label: '📦 기타' }], gridClass: 'cols-2', progressText: '3/3 단계' }
             ],
-
             regions: {
                 '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
                 '부산': ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
@@ -506,390 +238,36 @@
                 '경남': ['거제시', '거창군', '고성군', '김해시', '남해군', '밀양시', '사천시', '산청군', '양산시', '의령군', '진주시', '창녕군', '창원시', '통영시', '하동군', '함안군', '함양군', '합천군'],
                 '제주': ['서귀포시', '제주시']
             },
-
-            init() {
-                this.cacheElements();
-                this.bindEvents();
-                this.startChat();
-            },
-
-            cacheElements() {
-                this.elements = {
-                    messages: document.getElementById('messagesArea'),
-                    inputArea: document.getElementById('inputArea'),
-                    progressFill: document.getElementById('progressFill'),
-                    progressText: document.getElementById('progressText'),
-                    resetBtn: document.getElementById('resetBtn'),
-                    resultModal: document.getElementById('resultModal'),
-                    modalBody: document.getElementById('modalBody'),
-                    closeBtn: document.getElementById('closeBtn'),
-                    modalOverlay: document.getElementById('modalOverlay')
-                };
-            },
-
-            bindEvents() {
-                this.elements.resetBtn.addEventListener('click', () => this.reset());
-                this.elements.closeBtn.addEventListener('click', () => this.closeModal());
-                this.elements.modalOverlay.addEventListener('click', () => this.closeModal());
-            },
-
+            init() { this.cacheElements(); this.bindEvents(); this.startChat(); },
+            cacheElements() { this.elements = { messages: document.getElementById('messagesArea'), inputArea: document.getElementById('inputArea'), progressFill: document.getElementById('progressFill'), progressText: document.getElementById('progressText'), resetBtn: document.getElementById('resetBtn'), resultModal: document.getElementById('resultModal'), modalBody: document.getElementById('modalBody'), closeBtn: document.getElementById('closeBtn'), modalOverlay: document.getElementById('modalOverlay') }; },
+            bindEvents() { this.elements.resetBtn.addEventListener('click', () => this.reset()); this.elements.closeBtn.addEventListener('click', () => this.closeModal()); this.elements.modalOverlay.addEventListener('click', () => this.closeModal()); },
             startChat() { this.showQuestion(0); },
-
-            reset() {
-                this.state = { step: 0, answers: {}, isProcessing: false };
-                this.elements.messages.innerHTML = '';
-                this.updateProgress(0, '시작하기');
-                this.startChat();
-            },
-
-            getNextQuestion(currentIndex) {
-                for (let i = currentIndex + 1; i < this.questions.length; i++) {
-                    const q = this.questions[i];
-                    if (!q.condition) return i;
-                    const conditionMet = Object.entries(q.condition).every(([key, value]) => this.state.answers[key] === value);
-                    if (conditionMet) return i;
-                }
-                return -1;
-            },
-
-            showQuestion(index) {
-                const question = this.questions[index];
-                if (!question) { this.submitAnswers(); return; }
-                this.state.step = index;
-                if (question.progressText) {
-                    const [current, total] = question.progressText.match(/\d+/g);
-                    this.updateProgress((parseInt(current) / parseInt(total)) * 100, question.progressText);
-                }
-                this.showTyping();
-                setTimeout(() => {
-                    this.hideTyping();
-                    this.addBotMessage(question.message);
-                    this.showInputOptions(question);
-                }, 600);
-            },
-
-            updateProgress(percent, text) {
-                this.elements.progressFill.style.width = `${percent}%`;
-                this.elements.progressText.textContent = text;
-            },
-
-            showTyping() {
-                const typing = document.createElement('div');
-                typing.className = 'message bot typing-msg';
-                typing.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
-                this.elements.messages.appendChild(typing);
-                this.scrollToBottom();
-            },
-
-            hideTyping() {
-                const typing = this.elements.messages.querySelector('.typing-msg');
-                if (typing) typing.remove();
-            },
-
-            addBotMessage(text) {
-                const msg = document.createElement('div');
-                msg.className = 'message bot';
-                msg.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble">${text.replace(/\n/g, '<br>')}</div>`;
-                this.elements.messages.appendChild(msg);
-                this.scrollToBottom();
-            },
-
-            addUserMessage(text) {
-                const msg = document.createElement('div');
-                msg.className = 'message user';
-                msg.innerHTML = `<div class="message-bubble">${text}</div>`;
-                this.elements.messages.appendChild(msg);
-                this.scrollToBottom();
-            },
-
+            reset() { this.state = { step: 0, answers: {}, isProcessing: false, currentPage: 1, allServices: [], totalCount: 0 }; this.elements.messages.innerHTML = ''; this.updateProgress(0, '시작하기'); this.startChat(); },
+            getNextQuestion(currentIndex) { for (let i = currentIndex + 1; i < this.questions.length; i++) { const q = this.questions[i]; if (!q.condition) return i; if (Object.entries(q.condition).every(([key, value]) => this.state.answers[key] === value)) return i; } return -1; },
+            showQuestion(index) { const question = this.questions[index]; if (!question) { this.submitAnswers(); return; } this.state.step = index; if (question.progressText) { const [current, total] = question.progressText.match(/\d+/g); this.updateProgress((parseInt(current) / parseInt(total)) * 100, question.progressText); } this.showTyping(); setTimeout(() => { this.hideTyping(); this.addBotMessage(question.message); this.showInputOptions(question); }, 600); },
+            updateProgress(percent, text) { this.elements.progressFill.style.width = `${percent}%`; this.elements.progressText.textContent = text; },
+            showTyping() { const typing = document.createElement('div'); typing.className = 'message bot typing-msg'; typing.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`; this.elements.messages.appendChild(typing); this.scrollToBottom(); },
+            hideTyping() { const typing = this.elements.messages.querySelector('.typing-msg'); if (typing) typing.remove(); },
+            addBotMessage(text) { const msg = document.createElement('div'); msg.className = 'message bot'; msg.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble">${text.replace(/\n/g, '<br>')}</div>`; this.elements.messages.appendChild(msg); this.scrollToBottom(); },
+            addUserMessage(text) { const msg = document.createElement('div'); msg.className = 'message user'; msg.innerHTML = `<div class="message-bubble">${text}</div>`; this.elements.messages.appendChild(msg); this.scrollToBottom(); },
             scrollToBottom() { this.elements.messages.scrollTop = this.elements.messages.scrollHeight; },
-
-            showInputOptions(question) {
-                this.elements.inputArea.innerHTML = '';
-                switch (question.type) {
-                    case 'single': this.renderSingleSelect(question); break;
-                    case 'multi': this.renderMultiSelect(question); break;
-                    case 'region': this.renderRegionSelect(question); break;
-                    case 'birthGender': this.renderBirthGender(question); break;
-                }
-            },
-
-            renderSingleSelect(question) {
-                const container = document.createElement('div');
-                container.className = `options-grid ${question.gridClass || ''}`;
-                question.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.innerHTML = opt.sub ? `${opt.label}<span class="sub-text">${opt.sub}</span>` : opt.label;
-                    btn.addEventListener('click', () => {
-                        this.addUserMessage(opt.label);
-                        this.state.answers[question.id] = opt.value;
-                        this.proceedToNext();
-                    });
-                    container.appendChild(btn);
-                });
-                this.elements.inputArea.appendChild(container);
-            },
-
-            renderMultiSelect(question) {
-                const container = document.createElement('div');
-                container.className = `options-grid ${question.gridClass || ''}`;
-                const selected = new Set();
-                question.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn multi';
-                    btn.textContent = opt.label;
-                    btn.dataset.value = opt.value;
-                    btn.addEventListener('click', () => {
-                        if (opt.value === 'JA9999') {
-                            selected.clear();
-                            container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                            btn.classList.add('selected');
-                            selected.add(opt.value);
-                        } else {
-                            const noneBtn = container.querySelector('[data-value="JA9999"]');
-                            if (noneBtn) { noneBtn.classList.remove('selected'); selected.delete('JA9999'); }
-                            if (selected.has(opt.value)) { selected.delete(opt.value); btn.classList.remove('selected'); }
-                            else { selected.add(opt.value); btn.classList.add('selected'); }
-                        }
-                        confirmBtn.disabled = selected.size === 0;
-                    });
-                    container.appendChild(btn);
-                });
-                const confirmBtn = document.createElement('button');
-                confirmBtn.className = 'confirm-btn';
-                confirmBtn.textContent = '선택 완료';
-                confirmBtn.disabled = true;
-                confirmBtn.addEventListener('click', () => {
-                    const labels = Array.from(selected).map(v => { const opt = question.options.find(o => o.value === v); return opt ? opt.label : v; });
-                    this.addUserMessage(labels.join(', '));
-                    this.state.answers[question.id] = Array.from(selected);
-                    this.proceedToNext();
-                });
-                this.elements.inputArea.appendChild(container);
-                this.elements.inputArea.appendChild(confirmBtn);
-            },
-
-            renderRegionSelect(question) {
-                const container = document.createElement('div');
-                container.className = 'select-wrap';
-                const sidoSelect = document.createElement('select');
-                sidoSelect.className = 'custom-select';
-                sidoSelect.innerHTML = '<option value="">시/도 선택</option>';
-                Object.keys(this.regions).forEach(sido => { sidoSelect.innerHTML += `<option value="${sido}">${sido}</option>`; });
-                const gugunSelect = document.createElement('select');
-                gugunSelect.className = 'custom-select';
-                gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-                gugunSelect.disabled = true;
-                sidoSelect.addEventListener('change', () => {
-                    const sido = sidoSelect.value;
-                    gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-                    if (sido && this.regions[sido]) {
-                        gugunSelect.disabled = false;
-                        this.regions[sido].forEach(gugun => { gugunSelect.innerHTML += `<option value="${gugun}">${gugun}</option>`; });
-                    } else { gugunSelect.disabled = true; }
-                    confirmBtn.disabled = true;
-                });
-                gugunSelect.addEventListener('change', () => { confirmBtn.disabled = !gugunSelect.value; });
-                const confirmBtn = document.createElement('button');
-                confirmBtn.className = 'confirm-btn';
-                confirmBtn.textContent = '선택 완료';
-                confirmBtn.disabled = true;
-                confirmBtn.addEventListener('click', () => {
-                    this.addUserMessage(`${sidoSelect.value} ${gugunSelect.value}`);
-                    this.state.answers[question.id] = { sido: sidoSelect.value, gugun: gugunSelect.value };
-                    this.proceedToNext();
-                });
-                container.appendChild(sidoSelect);
-                container.appendChild(gugunSelect);
-                this.elements.inputArea.appendChild(container);
-                this.elements.inputArea.appendChild(confirmBtn);
-            },
-
-            renderBirthGender(question) {
-                const container = document.createElement('div');
-                container.className = 'birth-wrap';
-
-                // 생년월일
-                const birthSection = document.createElement('div');
-                birthSection.className = 'birth-section';
-                const birthLabel = document.createElement('div');
-                birthLabel.className = 'birth-label';
-                birthLabel.textContent = '생년월일';
-                birthSection.appendChild(birthLabel);
-
-                const birthRow = document.createElement('div');
-                birthRow.className = 'birth-row';
-
-                const yearWrap = document.createElement('div');
-                yearWrap.className = 'birth-input-wrap year';
-                const yearInput = document.createElement('input');
-                yearInput.type = 'number';
-                yearInput.className = 'birth-input';
-                yearInput.placeholder = '1990';
-                yearInput.min = '1900';
-                yearInput.max = '2025';
-                yearWrap.appendChild(yearInput);
-                const yearSuffix = document.createElement('span');
-                yearSuffix.className = 'birth-suffix';
-                yearSuffix.textContent = '년';
-
-                const monthWrap = document.createElement('div');
-                monthWrap.className = 'birth-input-wrap';
-                const monthInput = document.createElement('input');
-                monthInput.type = 'number';
-                monthInput.className = 'birth-input';
-                monthInput.placeholder = '1';
-                monthInput.min = '1';
-                monthInput.max = '12';
-                monthWrap.appendChild(monthInput);
-                const monthSuffix = document.createElement('span');
-                monthSuffix.className = 'birth-suffix';
-                monthSuffix.textContent = '월';
-
-                const dayWrap = document.createElement('div');
-                dayWrap.className = 'birth-input-wrap';
-                const dayInput = document.createElement('input');
-                dayInput.type = 'number';
-                dayInput.className = 'birth-input';
-                dayInput.placeholder = '1';
-                dayInput.min = '1';
-                dayInput.max = '31';
-                dayWrap.appendChild(dayInput);
-                const daySuffix = document.createElement('span');
-                daySuffix.className = 'birth-suffix';
-                daySuffix.textContent = '일';
-
-                birthRow.appendChild(yearWrap);
-                birthRow.appendChild(yearSuffix);
-                birthRow.appendChild(monthWrap);
-                birthRow.appendChild(monthSuffix);
-                birthRow.appendChild(dayWrap);
-                birthRow.appendChild(daySuffix);
-                birthSection.appendChild(birthRow);
-
-                // 성별
-                const genderSection = document.createElement('div');
-                genderSection.className = 'birth-section';
-                const genderLabel = document.createElement('div');
-                genderLabel.className = 'birth-label';
-                genderLabel.textContent = '성별';
-                genderSection.appendChild(genderLabel);
-
-                const genderBtns = document.createElement('div');
-                genderBtns.className = 'gender-btns';
-                let selectedGender = '';
-                ['남성', '여성'].forEach(gender => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.textContent = gender;
-                    btn.addEventListener('click', () => {
-                        genderBtns.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                        btn.classList.add('selected');
-                        selectedGender = gender;
-                        updateConfirmBtn();
-                    });
-                    genderBtns.appendChild(btn);
-                });
-                genderSection.appendChild(genderBtns);
-
-                const confirmBtn = document.createElement('button');
-                confirmBtn.className = 'confirm-btn';
-                confirmBtn.textContent = '선택 완료';
-                confirmBtn.disabled = true;
-
-                const updateConfirmBtn = () => {
-                    const year = yearInput.value;
-                    const month = monthInput.value;
-                    const day = dayInput.value;
-                    const validYear = year && year.length === 4 && parseInt(year) >= 1900 && parseInt(year) <= 2025;
-                    const validMonth = month && parseInt(month) >= 1 && parseInt(month) <= 12;
-                    const validDay = day && parseInt(day) >= 1 && parseInt(day) <= 31;
-                    confirmBtn.disabled = !(validYear && validMonth && validDay && selectedGender);
-                };
-
-                [yearInput, monthInput, dayInput].forEach(input => { input.addEventListener('input', updateConfirmBtn); });
-
-                confirmBtn.addEventListener('click', () => {
-                    const year = yearInput.value;
-                    const month = monthInput.value.padStart(2, '0');
-                    const day = dayInput.value.padStart(2, '0');
-                    this.addUserMessage(`${year}년 ${month}월 ${day}일, ${selectedGender}`);
-                    this.state.answers[question.id] = { year, month, day, gender: selectedGender === '남성' ? 'M' : 'F' };
-                    this.proceedToNext();
-                });
-
-                container.appendChild(birthSection);
-                container.appendChild(genderSection);
-                this.elements.inputArea.appendChild(container);
-                this.elements.inputArea.appendChild(confirmBtn);
-            },
-
-            proceedToNext() {
-                this.elements.inputArea.innerHTML = '';
-                const nextIndex = this.getNextQuestion(this.state.step);
-                if (nextIndex === -1) this.submitAnswers();
-                else setTimeout(() => this.showQuestion(nextIndex), 300);
-            },
-
-            async submitAnswers() {
-                this.updateProgress(100, '검색 중...');
-                this.showTyping();
-                try {
-                    let result;
-                    if (CONFIG.DEMO_MODE || !CONFIG.API_PROXY_URL) {
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-                        result = this.getDemoResults();
-                    } else {
-                        const response = await fetch(CONFIG.API_PROXY_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(this.state.answers)
-                        });
-                        result = await response.json();
-                    }
-                    this.hideTyping();
-                    this.showResults(result);
-                } catch (error) {
-                    console.error('Search error:', error);
-                    this.hideTyping();
-                    this.addBotMessage('죄송합니다. 검색 중 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.');
-                }
-            },
-
-            getDemoResults() {
-                return { services: [{ 서비스명: '청년 주거급여 분리지급', 서비스요약: '부모와 떨어져 거주하는 청년에게 주거급여를 별도로 지급', 소관기관명: '국토교통부', 서비스분야: '주거', 서비스ID: 'WLF00001' }], totalCount: 1 };
-            },
-
-            showResults(data) {
-                const { services, totalCount } = data;
-                this.addBotMessage(`🎉 검색이 완료되었어요!\n\n총 <strong>${totalCount.toLocaleString()}개</strong>의 맞춤 지원금을 찾았습니다.`);
-                setTimeout(() => this.renderResultModal(services, totalCount), 500);
-            },
-
-            renderResultModal(services, totalCount) {
-                let html = '';
-                if (totalCount === 0) {
-                    html = `<div class="no-result"><div class="no-result-icon">🔍</div><div class="no-result-title">검색 결과가 없습니다</div><div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.<br>조건을 변경하여 다시 검색해보세요.</div></div>`;
-                } else {
-                    html = `<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">${totalCount.toLocaleString()}</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">${services.length}</div><div class="stat-label">표시된 항목</div></div></div><div class="result-list">${services.map(s => {
-                        const name = s.서비스명 || s.servNm || '지원금명 없음';
-                        const desc = s.서비스요약 || s.servDgst || '';
-                        const org = s.소관기관명 || s.jurMnofNm || '';
-                        const dept = s.부서명 || s.jurOrgNm || '';
-                        const category = s.서비스분야 || s.svcfldNm || '지원금';
-                        const id = s.서비스ID || s.servId || '';
-                        return `<div class="result-card"><div class="result-card-header"><span class="result-badge">${category}</span><h4 class="result-title">${name}</h4></div><p class="result-org">${org} ${dept}</p><p class="result-desc">${desc}</p><a href="https://www.gov.kr/portal/rcvfvrSvc/dtlEx/${id}" target="_blank" rel="noopener" class="result-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>`;
-                    }).join('')}</div>`;
-                }
-                this.elements.modalBody.innerHTML = html;
-                this.openModal();
-            },
-
+            showInputOptions(question) { this.elements.inputArea.innerHTML = ''; switch (question.type) { case 'single': this.renderSingleSelect(question); break; case 'multi': this.renderMultiSelect(question); break; case 'region': this.renderRegionSelect(question); break; case 'birthGender': this.renderBirthGender(question); break; } },
+            renderSingleSelect(question) { const container = document.createElement('div'); container.className = `options-grid ${question.gridClass || ''}`; question.options.forEach(opt => { const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerHTML = opt.sub ? `${opt.label}<span class="sub-text">${opt.sub}</span>` : opt.label; btn.addEventListener('click', () => { this.addUserMessage(opt.label); this.state.answers[question.id] = opt.value; this.proceedToNext(); }); container.appendChild(btn); }); this.elements.inputArea.appendChild(container); },
+            renderMultiSelect(question) { const container = document.createElement('div'); container.className = `options-grid ${question.gridClass || ''}`; const selected = new Set(); question.options.forEach(opt => { const btn = document.createElement('button'); btn.className = 'option-btn multi'; btn.textContent = opt.label; btn.dataset.value = opt.value; btn.addEventListener('click', () => { if (opt.value === 'JA9999') { selected.clear(); container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); selected.add(opt.value); } else { const noneBtn = container.querySelector('[data-value="JA9999"]'); if (noneBtn) { noneBtn.classList.remove('selected'); selected.delete('JA9999'); } if (selected.has(opt.value)) { selected.delete(opt.value); btn.classList.remove('selected'); } else { selected.add(opt.value); btn.classList.add('selected'); } } confirmBtn.disabled = selected.size === 0; }); container.appendChild(btn); }); const confirmBtn = document.createElement('button'); confirmBtn.className = 'confirm-btn'; confirmBtn.textContent = '선택 완료'; confirmBtn.disabled = true; confirmBtn.addEventListener('click', () => { const labels = Array.from(selected).map(v => { const opt = question.options.find(o => o.value === v); return opt ? opt.label : v; }); this.addUserMessage(labels.join(', ')); this.state.answers[question.id] = Array.from(selected); this.proceedToNext(); }); this.elements.inputArea.appendChild(container); this.elements.inputArea.appendChild(confirmBtn); },
+            renderRegionSelect(question) { const container = document.createElement('div'); container.className = 'select-wrap'; const sidoSelect = document.createElement('select'); sidoSelect.className = 'custom-select'; sidoSelect.innerHTML = '<option value="">시/도 선택</option>'; Object.keys(this.regions).forEach(sido => { sidoSelect.innerHTML += `<option value="${sido}">${sido}</option>`; }); const gugunSelect = document.createElement('select'); gugunSelect.className = 'custom-select'; gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>'; gugunSelect.disabled = true; sidoSelect.addEventListener('change', () => { const sido = sidoSelect.value; gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>'; if (sido && this.regions[sido]) { gugunSelect.disabled = false; this.regions[sido].forEach(gugun => { gugunSelect.innerHTML += `<option value="${gugun}">${gugun}</option>`; }); } else { gugunSelect.disabled = true; } confirmBtn.disabled = true; }); gugunSelect.addEventListener('change', () => { confirmBtn.disabled = !gugunSelect.value; }); const confirmBtn = document.createElement('button'); confirmBtn.className = 'confirm-btn'; confirmBtn.textContent = '선택 완료'; confirmBtn.disabled = true; confirmBtn.addEventListener('click', () => { this.addUserMessage(`${sidoSelect.value} ${gugunSelect.value}`); this.state.answers[question.id] = { sido: sidoSelect.value, gugun: gugunSelect.value }; this.proceedToNext(); }); container.appendChild(sidoSelect); container.appendChild(gugunSelect); this.elements.inputArea.appendChild(container); this.elements.inputArea.appendChild(confirmBtn); },
+            renderBirthGender(question) { const container = document.createElement('div'); container.className = 'birth-wrap'; const birthSection = document.createElement('div'); birthSection.className = 'birth-section'; const birthLabel = document.createElement('div'); birthLabel.className = 'birth-label'; birthLabel.textContent = '생년월일'; birthSection.appendChild(birthLabel); const birthRow = document.createElement('div'); birthRow.className = 'birth-row'; const yearWrap = document.createElement('div'); yearWrap.className = 'birth-input-wrap year'; const yearInput = document.createElement('input'); yearInput.type = 'number'; yearInput.className = 'birth-input'; yearInput.placeholder = '1990'; yearInput.min = '1900'; yearInput.max = '2025'; yearWrap.appendChild(yearInput); const yearSuffix = document.createElement('span'); yearSuffix.className = 'birth-suffix'; yearSuffix.textContent = '년'; const monthWrap = document.createElement('div'); monthWrap.className = 'birth-input-wrap'; const monthInput = document.createElement('input'); monthInput.type = 'number'; monthInput.className = 'birth-input'; monthInput.placeholder = '1'; monthInput.min = '1'; monthInput.max = '12'; monthWrap.appendChild(monthInput); const monthSuffix = document.createElement('span'); monthSuffix.className = 'birth-suffix'; monthSuffix.textContent = '월'; const dayWrap = document.createElement('div'); dayWrap.className = 'birth-input-wrap'; const dayInput = document.createElement('input'); dayInput.type = 'number'; dayInput.className = 'birth-input'; dayInput.placeholder = '1'; dayInput.min = '1'; dayInput.max = '31'; dayWrap.appendChild(dayInput); const daySuffix = document.createElement('span'); daySuffix.className = 'birth-suffix'; daySuffix.textContent = '일'; birthRow.appendChild(yearWrap); birthRow.appendChild(yearSuffix); birthRow.appendChild(monthWrap); birthRow.appendChild(monthSuffix); birthRow.appendChild(dayWrap); birthRow.appendChild(daySuffix); birthSection.appendChild(birthRow); const genderSection = document.createElement('div'); genderSection.className = 'birth-section'; const genderLabel = document.createElement('div'); genderLabel.className = 'birth-label'; genderLabel.textContent = '성별'; genderSection.appendChild(genderLabel); const genderBtns = document.createElement('div'); genderBtns.className = 'gender-btns'; let selectedGender = ''; ['남성', '여성'].forEach(gender => { const btn = document.createElement('button'); btn.className = 'option-btn'; btn.textContent = gender; btn.addEventListener('click', () => { genderBtns.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); selectedGender = gender; updateConfirmBtn(); }); genderBtns.appendChild(btn); }); genderSection.appendChild(genderBtns); const confirmBtn = document.createElement('button'); confirmBtn.className = 'confirm-btn'; confirmBtn.textContent = '선택 완료'; confirmBtn.disabled = true; const updateConfirmBtn = () => { const year = yearInput.value; const month = monthInput.value; const day = dayInput.value; const validYear = year && year.length === 4 && parseInt(year) >= 1900 && parseInt(year) <= 2025; const validMonth = month && parseInt(month) >= 1 && parseInt(month) <= 12; const validDay = day && parseInt(day) >= 1 && parseInt(day) <= 31; confirmBtn.disabled = !(validYear && validMonth && validDay && selectedGender); }; [yearInput, monthInput, dayInput].forEach(input => { input.addEventListener('input', updateConfirmBtn); }); confirmBtn.addEventListener('click', () => { const year = yearInput.value; const month = monthInput.value.padStart(2, '0'); const day = dayInput.value.padStart(2, '0'); this.addUserMessage(`${year}년 ${month}월 ${day}일, ${selectedGender}`); this.state.answers[question.id] = { year, month, day, gender: selectedGender === '남성' ? 'M' : 'F' }; this.proceedToNext(); }); container.appendChild(birthSection); container.appendChild(genderSection); this.elements.inputArea.appendChild(container); this.elements.inputArea.appendChild(confirmBtn); },
+            proceedToNext() { this.elements.inputArea.innerHTML = ''; const nextIndex = this.getNextQuestion(this.state.step); if (nextIndex === -1) this.submitAnswers(); else setTimeout(() => this.showQuestion(nextIndex), 300); },
+            calculatePriorityScore(service) { let score = 0; const name = (service.서비스명 || service.servNm || '').toLowerCase(); const desc = (service.서비스요약 || service.servDgst || '').toLowerCase(); const content = name + ' ' + desc; const personalChars = this.state.answers.personalChar || []; personalChars.forEach(char => { const keywords = this.priorityKeywords[char] || []; keywords.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 10; }); }); const familyChars = this.state.answers.familyChar || []; familyChars.forEach(char => { const keywords = this.priorityKeywords[char] || []; keywords.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 10; }); }); if (this.state.answers.birthGender) { const birthYear = parseInt(this.state.answers.birthGender.year); const currentYear = new Date().getFullYear(); const age = currentYear - birthYear; if (age >= 19 && age <= 39) { this.priorityKeywords.youth.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 15; }); } if (age >= 65) { this.priorityKeywords.senior.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 15; }); } if (age < 19) { this.priorityKeywords.child.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 15; }); } } const income = this.state.answers.income; if (income === '0~50' || income === '51~75') { this.priorityKeywords.lowIncome.forEach(kw => { if (content.includes(kw.toLowerCase())) score += 12; }); } const region = this.state.answers.region; if (region) { if (content.includes(region.sido) || content.includes(region.gugun)) { score += 8; } } return score; },
+            sortServicesByPriority(services) { return services.map(service => ({ ...service, priorityScore: this.calculatePriorityScore(service) })).sort((a, b) => b.priorityScore - a.priorityScore); },
+            async submitAnswers() { this.updateProgress(100, '검색 중...'); this.showTyping(); try { let result; if (CONFIG.DEMO_MODE || !CONFIG.API_PROXY_URL) { await new Promise(resolve => setTimeout(resolve, 1500)); result = this.getDemoResults(); } else { const response = await fetch(CONFIG.API_PROXY_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.state.answers) }); result = await response.json(); } const sortedServices = this.sortServicesByPriority(result.services || []); this.state.allServices = sortedServices; this.state.totalCount = result.totalCount || sortedServices.length; this.state.currentPage = 1; this.hideTyping(); this.showResults(); } catch (error) { console.error('Search error:', error); this.hideTyping(); this.addBotMessage('죄송합니다. 검색 중 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.'); } },
+            getDemoResults() { return { services: [{ 서비스명: '청년 주거급여 분리지급', 서비스요약: '부모와 떨어져 거주하는 청년에게 주거급여를 별도로 지급', 소관기관명: '국토교통부', 서비스분야: '주거', 서비스ID: 'WLF00001' }, { 서비스명: '청년내일저축계좌', 서비스요약: '일하는 저소득 청년의 자산형성 지원', 소관기관명: '보건복지부', 서비스분야: '금융', 서비스ID: 'WLF00002' }, { 서비스명: '국민취업지원제도', 서비스요약: '취업지원서비스와 구직자 생계지원', 소관기관명: '고용노동부', 서비스분야: '취업', 서비스ID: 'WLF00003' }], totalCount: 3 }; },
+            showResults() { const { totalCount } = this.state; this.addBotMessage(`🎉 검색이 완료되었어요!\n\n총 <strong>${totalCount.toLocaleString()}개</strong>의 맞춤 지원금을 찾았습니다.\n\n⭐ 추천 표시는 입력하신 조건에 가장 적합한 지원금이에요!`); setTimeout(() => this.renderResultModal(), 500); },
+            renderResultModal() { const { allServices, totalCount, currentPage } = this.state; const totalPages = Math.ceil(allServices.length / CONFIG.ITEMS_PER_PAGE); const startIdx = (currentPage - 1) * CONFIG.ITEMS_PER_PAGE; const endIdx = startIdx + CONFIG.ITEMS_PER_PAGE; const pageServices = allServices.slice(startIdx, endIdx); let html = ''; if (totalCount === 0) { html = `<div class="no-result"><div class="no-result-icon">🔍</div><div class="no-result-title">검색 결과가 없습니다</div><div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.<br>조건을 변경하여 다시 검색해보세요.</div></div>`; } else { html = `<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">${totalCount.toLocaleString()}</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">${startIdx + 1}-${Math.min(endIdx, allServices.length)}</div><div class="stat-label">/ ${allServices.length}개 표시</div></div></div><div class="result-list">${pageServices.map((s, idx) => { const globalIdx = startIdx + idx; const name = s.서비스명 || s.servNm || '지원금명 없음'; const desc = s.서비스요약 || s.servDgst || ''; const org = s.소관기관명 || s.jurMnofNm || ''; const dept = s.부서명 || s.jurOrgNm || ''; const category = s.서비스분야 || s.svcfldNm || '지원금'; const id = s.서비스ID || s.servId || ''; const isRecommended = s.priorityScore > 0 && globalIdx < 5; return `<div class="result-card ${isRecommended ? 'recommended' : ''}"><div class="result-card-header"><span class="result-badge">${category}</span><h4 class="result-title">${name}</h4></div><p class="result-org">${org} ${dept}</p><p class="result-desc">${desc}</p><a href="https://www.gov.kr/portal/rcvfvrSvc/dtlEx/${id}" target="_blank" rel="noopener" class="result-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>`; }).join('')}</div>${this.renderPagination(totalPages)}`; } this.elements.modalBody.innerHTML = html; this.bindPaginationEvents(); this.openModal(); },
+            renderPagination(totalPages) { if (totalPages <= 1) return ''; const { currentPage } = this.state; let pageNumbers = ''; let startPage = Math.max(1, currentPage - 2); let endPage = Math.min(totalPages, startPage + 4); if (endPage - startPage < 4) { startPage = Math.max(1, endPage - 4); } for (let i = startPage; i <= endPage; i++) { pageNumbers += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`; } return `<div class="pagination"><button class="page-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="page-numbers">${pageNumbers}</div><button class="page-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>`; },
+            bindPaginationEvents() { const pagination = this.elements.modalBody.querySelector('.pagination'); if (!pagination) return; pagination.addEventListener('click', (e) => { const btn = e.target.closest('.page-btn'); if (!btn || btn.disabled) return; const page = btn.dataset.page; const totalPages = Math.ceil(this.state.allServices.length / CONFIG.ITEMS_PER_PAGE); if (page === 'prev') { this.state.currentPage = Math.max(1, this.state.currentPage - 1); } else if (page === 'next') { this.state.currentPage = Math.min(totalPages, this.state.currentPage + 1); } else { this.state.currentPage = parseInt(page); } this.renderResultModal(); this.elements.modalBody.scrollTop = 0; }); },
             openModal() { this.elements.resultModal.classList.add('active'); document.body.style.overflow = 'hidden'; },
             closeModal() { this.elements.resultModal.classList.remove('active'); document.body.style.overflow = ''; }
         };
-
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => Chatbot.init());
         else Chatbot.init();
     })();
