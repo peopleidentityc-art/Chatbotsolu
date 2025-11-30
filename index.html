@@ -3,202 +3,671 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>맞춤 지원금 찾기</title>
+    <title>맞춤 지원금 찾기 - 보조금24</title>
+    <meta name="description" content="나에게 맞는 정부 지원금을 찾아보세요. 몇 가지 질문에 답하면 받을 수 있는 보조금을 추천해드립니다.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563EB; --primary-light: #3B82F6; --primary-dark: #1D4ED8;
-            --primary-50: #EFF6FF; --primary-100: #DBEAFE;
-            --gray-900: #111827; --gray-800: #1F2937; --gray-700: #374151;
-            --gray-600: #4B5563; --gray-500: #6B7280; --gray-400: #9CA3AF;
-            --gray-300: #D1D5DB; --gray-200: #E5E7EB; --gray-100: #F3F4F6;
-            --gray-50: #F9FAFB; --white: #FFFFFF;
-            --gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px;
-            --radius-xl: 24px; --radius-full: 9999px;
-            --font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            --transition: 0.2s ease;
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --primary-light: #3B82F6;
+            --primary-50: #EFF6FF;
+            --primary-100: #DBEAFE;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-900: #111827;
+            --gray-800: #1F2937;
+            --gray-700: #374151;
+            --gray-600: #4B5563;
+            --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --gray-200: #E5E7EB;
+            --gray-100: #F3F4F6;
+            --gray-50: #F9FAFB;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { height: 100%; font-family: var(--font-family); background: var(--gray-50); }
-        button, input, select { font-family: inherit; }
-        button { cursor: pointer; }
 
-        .chatbot-wrapper { min-height: 100vh; min-height: 100dvh; display: flex; align-items: flex-start; justify-content: center; padding: 16px; }
-        .chatbot-container { width: 100%; max-width: 480px; background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); overflow: hidden; display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
-        
-        .chatbot-header { display: flex; align-items: center; gap: 16px; padding: 20px; background: var(--gradient-primary); color: var(--white); }
-        .header-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { 
+            height: 100%; 
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+        button { cursor: pointer; font-family: inherit; }
+        input, select { font-family: inherit; }
+
+        /* Wrapper */
+        .app-wrapper {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* Container */
+        .chat-container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100dvh - 32px);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .chat-header {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .header-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
         .header-icon svg { width: 28px; height: 28px; }
-        .header-text { flex: 1; }
-        .header-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
-        .header-subtitle { font-size: 0.813rem; opacity: 0.9; }
-        .reset-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.15); border: none; border-radius: var(--radius-sm); color: var(--white); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-        .reset-btn:hover { background: rgba(255,255,255,0.25); }
-        .reset-btn svg { width: 20px; height: 20px; }
+        .header-content { flex: 1; }
+        .header-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 2px; }
+        .header-desc { font-size: 0.813rem; opacity: 0.9; }
+        .btn-reset {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .btn-reset:hover { background: rgba(255,255,255,0.25); }
+        .btn-reset svg { width: 20px; height: 20px; }
 
-        .progress-wrap { padding: 12px 20px; background: var(--gray-50); border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 12px; }
-        .progress-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: var(--radius-full); overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--gradient-primary); transition: width 0.4s ease; width: 0%; }
-        .progress-text { font-size: 0.75rem; font-weight: 600; color: var(--gray-500); }
+        /* Progress */
+        .progress-section {
+            padding: 14px 20px;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: var(--radius-full);
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+        .progress-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
 
-        .messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; min-height: 320px; }
-        .message { display: flex; gap: 8px; max-width: 90%; animation: msgFadeIn 0.3s ease; }
-        @keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .message.bot { align-self: flex-start; }
-        .message-avatar { width: 36px; height: 36px; background: var(--gradient-primary); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .message-avatar svg { width: 20px; height: 20px; color: var(--white); }
-        .message-bubble { padding: 14px 16px; border-radius: var(--radius); font-size: 0.938rem; line-height: 1.6; }
-        .message.bot .message-bubble { background: var(--gray-100); color: var(--gray-800); border-top-left-radius: 4px; }
-        .message.user { align-self: flex-end; flex-direction: row-reverse; }
-        .message.user .message-bubble { background: var(--gradient-primary); color: var(--white); border-top-right-radius: 4px; }
+        /* Messages */
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 300px;
+        }
+        .msg {
+            display: flex;
+            gap: 10px;
+            max-width: 88%;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .msg.bot { align-self: flex-start; }
+        .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+        .msg-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .msg-avatar svg { width: 20px; height: 20px; color: var(--white); }
+        .msg-bubble {
+            padding: 14px 16px;
+            border-radius: var(--radius);
+            font-size: 0.938rem;
+            line-height: 1.6;
+        }
+        .msg.bot .msg-bubble {
+            background: var(--gray-100);
+            color: var(--gray-800);
+            border-top-left-radius: 4px;
+        }
+        .msg.user .msg-bubble {
+            background: var(--gradient);
+            color: var(--white);
+            border-top-right-radius: 4px;
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 14px 16px;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-400);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
 
-        .typing-dots { display: flex; gap: 4px; padding: 14px 16px; }
-        .typing-dots span { width: 8px; height: 8px; background: var(--gray-400); border-radius: 50%; animation: bounce 1.4s infinite; }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+        /* Input Area */
+        .input-section {
+            padding: 16px 20px 20px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .options-list.grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .btn-option {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            font-size: 0.938rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            text-align: center;
+            transition: 0.2s;
+        }
+        .btn-option:hover {
+            border-color: var(--primary);
+            background: var(--primary-50);
+            color: var(--primary);
+        }
+        .btn-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-option .sub { display: block; font-size: 0.75rem; opacity: 0.75; margin-top: 4px; }
 
-        .input-area { padding: 16px 20px 20px; background: var(--white); border-top: 1px solid var(--gray-100); }
-        .options-grid { display: flex; flex-direction: column; gap: 8px; }
-        .options-grid.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); }
+        /* Multi-select */
+        .btn-option.multi {
+            position: relative;
+            padding-left: 44px;
+            text-align: left;
+        }
+        .btn-option.multi::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
+        }
+        .btn-option.multi.selected::before {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-option.multi.selected::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 50%;
+            transform: translateY(-60%) rotate(45deg);
+            width: 5px;
+            height: 10px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+        }
 
-        .option-btn { background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 14px 16px; font-size: 0.938rem; font-weight: 500; color: var(--gray-700); transition: var(--transition); text-align: center; }
-        .option-btn:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
-        .option-btn.selected { border-color: var(--primary); background: var(--primary); color: var(--white); }
-        .option-btn .sub-text { display: block; font-size: 0.75rem; opacity: 0.8; margin-top: 4px; }
+        /* Action Buttons */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn-back {
+            flex: 0 0 auto;
+            min-width: 72px;
+            padding: 14px 16px;
+            background: var(--white);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 0.938rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: 0.2s;
+        }
+        .btn-back:hover { border-color: var(--gray-400); background: var(--gray-50); }
+        .btn-back:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-back svg { width: 18px; height: 18px; }
+        .btn-confirm {
+            flex: 1;
+            padding: 14px 20px;
+            background: var(--gradient);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            transition: 0.2s;
+        }
+        .btn-confirm:hover { opacity: 0.9; }
+        .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .option-btn.multi { position: relative; padding-left: 44px; text-align: left; }
-        .option-btn.multi::before { content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 4px; }
-        .option-btn.multi.selected::before { background: var(--primary); border-color: var(--primary); }
-        .option-btn.multi.selected::after { content: ''; position: absolute; left: 19px; top: 50%; transform: translateY(-60%) rotate(45deg); width: 5px; height: 10px; border: solid var(--white); border-width: 0 2px 2px 0; }
-
-        .btn-group { display: flex; gap: 8px; margin-top: 8px; }
-        .back-btn { flex: 0 0 auto; min-width: 80px; background: var(--white); border: 2px solid var(--gray-300); border-radius: var(--radius); padding: 14px 16px; font-size: 1rem; font-weight: 600; color: var(--gray-600); display: flex; align-items: center; justify-content: center; gap: 4px; transition: var(--transition); }
-        .back-btn:hover { border-color: var(--gray-400); background: var(--gray-50); }
-        .back-btn svg { width: 18px; height: 18px; }
-        .back-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-        .confirm-btn { flex: 1; background: var(--gradient-primary); border: none; border-radius: var(--radius); padding: 14px; font-size: 1rem; font-weight: 600; color: var(--white); transition: var(--transition); }
-        .confirm-btn:hover { opacity: 0.9; }
-        .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .confirm-btn.full { width: 100%; margin-top: 8px; }
-
-        .select-wrap { display: flex; flex-direction: column; gap: 8px; }
-        .custom-select { width: 100%; padding: 14px 40px 14px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 0.938rem; color: var(--gray-700); background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center; background-size: 20px; appearance: none; }
+        /* Select */
+        .select-group { display: flex; flex-direction: column; gap: 10px; }
+        .custom-select {
+            width: 100%;
+            padding: 14px 40px 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.938rem;
+            color: var(--gray-700);
+            background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
+            background-size: 20px;
+            appearance: none;
+        }
         .custom-select:focus { outline: none; border-color: var(--primary); }
 
-        .birth-wrap { display: flex; flex-direction: column; gap: 16px; }
-        .birth-section { display: flex; flex-direction: column; gap: 8px; }
-        .birth-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); }
-        .birth-row { display: flex; gap: 8px; align-items: center; }
-        .birth-input-wrap { flex: 1; }
-        .birth-input-wrap.year { flex: 1.5; }
-        .birth-input { width: 100%; padding: 14px 12px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 1rem; text-align: center; -moz-appearance: textfield; }
-        .birth-input::-webkit-outer-spin-button, .birth-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        /* Birth & Gender */
+        .birth-form { display: flex; flex-direction: column; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); }
+        .birth-inputs { display: flex; gap: 8px; align-items: center; }
+        .input-wrap { flex: 1; }
+        .input-wrap.wide { flex: 1.4; }
+        .birth-input {
+            width: 100%;
+            padding: 14px 10px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            text-align: center;
+            -moz-appearance: textfield;
+        }
+        .birth-input::-webkit-outer-spin-button,
+        .birth-input::-webkit-inner-spin-button { -webkit-appearance: none; }
         .birth-input:focus { outline: none; border-color: var(--primary); }
         .birth-input::placeholder { color: var(--gray-400); font-size: 0.875rem; }
-        .birth-suffix { font-size: 0.875rem; color: var(--gray-500); width: 20px; }
-        .gender-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .input-suffix { font-size: 0.875rem; color: var(--gray-500); width: 20px; }
+        .gender-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* 결과 모달 */
-        .result-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); }
-        .result-modal.active { opacity: 1; visibility: visible; }
-        .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-        .modal-content { position: relative; width: 100%; max-width: 500px; max-height: 85vh; background: var(--white); border-radius: var(--radius-xl) var(--radius-xl) 0 0; transform: translateY(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
-        .result-modal.active .modal-content { transform: translateY(0); }
-        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--gray-100); flex-shrink: 0; }
-        .modal-header h3 { font-size: 1.25rem; font-weight: 700; }
-        .close-btn { width: 36px; height: 36px; background: var(--gray-100); border: none; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
-        .close-btn:hover { background: var(--gray-200); }
-        .close-btn svg { width: 20px; height: 20px; color: var(--gray-600); }
+        /* Result Modal */
+        .result-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+        }
+        .result-modal.show { opacity: 1; visibility: visible; }
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal-panel {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            max-height: 88vh;
+            background: var(--white);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .result-modal.show .modal-panel { transform: translateY(0); }
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
+        .btn-close {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .btn-close:hover { background: var(--gray-200); }
+        .btn-close svg { width: 20px; height: 20px; color: var(--gray-600); }
         .modal-body { flex: 1; overflow-y: auto; padding: 20px; }
 
-        .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
-        .stat-card { background: var(--gray-50); border-radius: var(--radius); padding: 16px; text-align: center; }
-        .stat-card.highlight { background: var(--primary-50); }
-        .stat-number { font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-box.primary { background: var(--primary-50); }
+        .stat-value { font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
         .stat-label { font-size: 0.813rem; color: var(--gray-600); }
 
-        /* 상단 네비게이션 (이전/다음 페이지) */
-        .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 12px 16px; background: var(--gray-50); border-radius: var(--radius); }
-        .top-nav-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); transition: var(--transition); }
-        .top-nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
-        .top-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .top-nav-btn svg { width: 16px; height: 16px; }
-        .top-nav-info { font-size: 0.875rem; font-weight: 600; color: var(--gray-600); }
+        /* Page Navigation */
+        .page-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+        }
+        .page-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: 0.2s;
+        }
+        .page-nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .page-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-nav-btn svg { width: 16px; height: 16px; }
+        .page-nav-info { font-size: 0.875rem; font-weight: 600; color: var(--gray-600); }
 
-        .result-list { display: flex; flex-direction: column; gap: 12px; }
-        .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px; position: relative; }
-        .result-card:hover { border-color: var(--primary-100); box-shadow: var(--shadow-md); }
-        .result-card.recommended { border-color: #F59E0B; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); }
-        .result-card.recommended::before { content: '⭐ 추천'; position: absolute; top: -8px; right: 12px; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; font-size: 0.688rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full); }
-        .result-badge { background: var(--primary); color: var(--white); font-size: 0.688rem; font-weight: 600; padding: 4px 8px; border-radius: var(--radius-sm); display: inline-block; margin-bottom: 8px; }
-        .result-title { font-size: 1rem; font-weight: 600; color: var(--gray-900); line-height: 1.4; margin-bottom: 8px; }
+        /* Results List */
+        .results-list { display: flex; flex-direction: column; gap: 12px; }
+        .result-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 16px;
+            position: relative;
+            transition: 0.2s;
+        }
+        .result-item:hover { border-color: var(--primary-100); box-shadow: var(--shadow); }
+        .result-item.recommended {
+            border-color: var(--warning);
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+        }
+        .result-item.recommended::before {
+            content: '⭐ 추천';
+            position: absolute;
+            top: -10px;
+            right: 14px;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: var(--white);
+            font-size: 0.688rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+        }
+        .result-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.688rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+        }
+        .result-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
         .result-org { font-size: 0.813rem; color: var(--gray-500); margin-bottom: 8px; }
-        .result-desc { font-size: 0.875rem; color: var(--gray-600); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .result-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.875rem; font-weight: 600; color: var(--primary); text-decoration: none; }
+        .result-desc {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .result-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+        }
         .result-link:hover { text-decoration: underline; }
         .result-link svg { width: 16px; height: 16px; }
 
-        .no-result { text-align: center; padding: 48px 20px; }
-        .no-result-icon { font-size: 3rem; margin-bottom: 16px; }
-        .no-result-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
-        .no-result-desc { font-size: 0.875rem; color: var(--gray-500); }
-
-        /* 하단 페이지 번호 */
-        .pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
-        .page-btn { min-width: 36px; height: 36px; padding: 0 8px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); color: var(--gray-600); font-size: 0.813rem; font-weight: 600; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-        .page-btn:hover:not(:disabled):not(.active) { border-color: var(--primary); color: var(--primary); }
-        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
-        .page-btn.ellipsis { border: none; background: none; cursor: default; }
-        .page-btn.ellipsis:hover { color: var(--gray-600); }
-
-        @media (max-width: 520px) {
-            .chatbot-wrapper { padding: 0; }
-            .chatbot-container { max-width: 100%; border-radius: 0; max-height: 100dvh; }
-            .chatbot-header { padding: 16px; padding-top: max(16px, env(safe-area-inset-top)); }
-            .modal-content { max-width: 100%; max-height: 90vh; }
-            .page-btn { min-width: 32px; height: 32px; font-size: 0.75rem; }
-            .top-nav-btn { padding: 6px 12px; font-size: 0.813rem; }
+        /* Pagination */
+        .pagination {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
         }
+        .page-num {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 8px;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            color: var(--gray-600);
+            font-size: 0.813rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .page-num:hover:not(:disabled):not(.active):not(.dots) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .page-num:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-num.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+        .page-num.dots {
+            border: none;
+            background: transparent;
+            cursor: default;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+        }
+        .no-results-icon { font-size: 3.5rem; margin-bottom: 16px; }
+        .no-results-title { font-size: 1.125rem; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
+        .no-results-desc { font-size: 0.875rem; color: var(--gray-500); }
+
+        /* Debug Panel (Hidden by default) */
+        .debug-panel {
+            margin-top: 20px;
+            padding: 16px;
+            background: #1e1e1e;
+            border-radius: var(--radius);
+            display: none;
+        }
+        .debug-panel.show { display: block; }
+        .debug-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #10B981;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .debug-content {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #E5E7EB;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 520px) {
+            .app-wrapper { padding: 0; }
+            .chat-container {
+                max-width: 100%;
+                border-radius: 0;
+                max-height: 100dvh;
+            }
+            .chat-header {
+                padding: 16px;
+                padding-top: max(16px, env(safe-area-inset-top));
+            }
+            .modal-panel { max-width: 100%; max-height: 92vh; }
+            .page-num { min-width: 32px; height: 32px; font-size: 0.75rem; }
+        }
+
         @media (min-width: 521px) {
-            .chatbot-wrapper { align-items: center; padding: 24px; }
             .result-modal { align-items: center; }
-            .modal-content { border-radius: var(--radius-xl); max-height: 80vh; }
+            .modal-panel { border-radius: var(--radius-xl); max-height: 85vh; }
         }
     </style>
 </head>
 <body>
-    <div class="chatbot-wrapper">
-        <div class="chatbot-container">
-            <header class="chatbot-header">
-                <div class="header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-                <div class="header-text">
-                    <h1 class="header-title">맞춤 지원금 찾기</h1>
-                    <p class="header-subtitle">몇 가지 질문에 답하면 받을 수 있는 지원금을 찾아드려요</p>
+    <div class="app-wrapper">
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                    </svg>
                 </div>
-                <button class="reset-btn" id="resetBtn" title="처음부터 다시"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+                <div class="header-content">
+                    <h1 class="header-title">맞춤 지원금 찾기</h1>
+                    <p class="header-desc">몇 가지 질문으로 받을 수 있는 지원금을 찾아드려요</p>
+                </div>
+                <button class="btn-reset" id="resetBtn" title="처음부터 다시">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                </button>
             </header>
-            <div class="progress-wrap">
-                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-                <span class="progress-text" id="progressText">시작하기</span>
+
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-label" id="progressLabel">시작하기</span>
             </div>
-            <main class="messages-area" id="messagesArea"></main>
-            <div class="input-area" id="inputArea"></div>
+
+            <main class="messages-container" id="messagesContainer"></main>
+            <div class="input-section" id="inputSection"></div>
         </div>
     </div>
+
     <div class="result-modal" id="resultModal">
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-content">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-panel">
             <div class="modal-header">
-                <h3>🎉 맞춤 지원금 검색 완료!</h3>
-                <button class="close-btn" id="closeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                <h2 class="modal-title">🎉 맞춤 지원금 검색 완료!</h2>
+                <button class="btn-close" id="closeModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
             <div class="modal-body" id="modalBody"></div>
         </div>
@@ -207,138 +676,316 @@
     <script>
     (function() {
         'use strict';
-        
+
+        // ============ CONFIG ============
         const CONFIG = {
-            API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
+            API_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
             ITEMS_PER_PAGE: 20,
-            MAX_ITEMS: 1000
+            MAX_ITEMS: 1000,
+            DEBUG: false // 디버그 패널 표시 여부
         };
 
-        const Chatbot = {
-            state: { 
-                step: 0, 
-                answers: {}, 
-                history: [], // 이전 단계 기록
-                currentPage: 1, 
-                allServices: [], 
-                totalCount: 0 
+        // ============ APP STATE ============
+        const App = {
+            state: {
+                currentStep: 0,
+                answers: {},
+                history: [],
+                services: [],
+                totalCount: 0,
+                currentPage: 1,
+                debugInfo: null
             },
+
             elements: {},
 
+            // ============ QUESTIONS ============
             questions: [
-                { id: 'intro', type: 'single', message: '안녕하세요! 👋\n맞춤 지원금을 찾아드릴게요.\n\n어떤 유형으로 검색하시겠어요?', options: [{ value: 'personal', label: '👤 개인/가구' }, { value: 'business', label: '🏪 소상공인' }, { value: 'corp', label: '🏢 법인/기관' }] },
-                { id: 'region', type: 'region', condition: { intro: 'personal' }, message: '거주하시는 지역을 선택해주세요.', progressText: '1/5 단계' },
-                { id: 'birthGender', type: 'birthGender', condition: { intro: 'personal' }, message: '생년월일과 성별을 알려주세요.', progressText: '2/5 단계' },
-                { id: 'income', type: 'single', condition: { intro: 'personal' }, message: '가구의 소득 수준을 선택해주세요.\n\n💡 2025년 기준중위소득 (4인가구: 월 572만원)', options: [{ value: '0~50', label: '50% 이하', sub: '월 286만원 이하' }, { value: '51~75', label: '51~75%', sub: '월 286~429만원' }, { value: '76~100', label: '76~100%', sub: '월 429~572만원' }, { value: '101~200', label: '101~200%', sub: '월 572~1,145만원' }, { value: '200~', label: '200% 초과', sub: '월 1,145만원 초과' }], gridClass: 'cols-2', progressText: '3/5 단계' },
-                { id: 'personalChar', type: 'multi', condition: { intro: 'personal' }, message: '해당되는 개인 특성을 모두 선택해주세요.', options: [{ value: 'JA0101', label: '예비부부/난임' }, { value: 'JA0102', label: '임신부' }, { value: 'JA0103', label: '출산/입양' }, { value: 'JA0201', label: '영유아' }, { value: 'JA0301', label: '장애인' }, { value: 'JA0302', label: '국가보훈대상자' }, { value: 'JA0401', label: '농업인' }, { value: 'JA0501', label: '중/고등학생' }, { value: 'JA0502', label: '대학생' }, { value: 'JA0601', label: '근로자/직장인' }, { value: 'JA0602', label: '구직자/실업자' }, { value: 'JA9999', label: '해당없음' }], gridClass: 'cols-2', progressText: '4/5 단계' },
-                { id: 'familyChar', type: 'multi', condition: { intro: 'personal' }, message: '해당되는 가구 특성을 모두 선택해주세요.', options: [{ value: 'JA0701', label: '다문화가정' }, { value: 'JA0702', label: '북한이탈주민' }, { value: 'JA0703', label: '한부모/조손가정' }, { value: 'JA0704', label: '1인 가구' }, { value: 'JA0705', label: '다자녀 가구' }, { value: 'JA0706', label: '무주택 세대' }, { value: 'JA9999', label: '해당없음' }], gridClass: 'cols-2', progressText: '5/5 단계' },
-                { id: 'bizRegion', type: 'region', condition: { intro: 'business' }, message: '사업장 소재지를 선택해주세요.', progressText: '1/2 단계' },
-                { id: 'bizType', type: 'single', condition: { intro: 'business' }, message: '업종을 선택해주세요.', options: [{ value: 'food', label: '🍽️ 음식점업' }, { value: 'manufacture', label: '🏭 제조업' }, { value: 'retail', label: '🛒 도소매업' }, { value: 'service', label: '💼 서비스업' }, { value: 'other', label: '📦 기타' }], gridClass: 'cols-2', progressText: '2/2 단계' },
-                { id: 'corpRegion', type: 'region', condition: { intro: 'corp' }, message: '사업장 소재지를 선택해주세요.', progressText: '1/2 단계' },
-                { id: 'corpBizType', type: 'single', condition: { intro: 'corp' }, message: '업종을 선택해주세요.', options: [{ value: 'manufacture', label: '🏭 제조업' }, { value: 'agri', label: '🌾 농림어업' }, { value: 'it', label: '💻 정보통신업' }, { value: 'other', label: '📦 기타' }], gridClass: 'cols-2', progressText: '2/2 단계' }
+                {
+                    id: 'intro',
+                    type: 'single',
+                    message: '안녕하세요! 👋\n나에게 맞는 정부 지원금을 찾아드릴게요.\n\n어떤 유형으로 검색하시겠어요?',
+                    options: [
+                        { value: 'personal', label: '👤 개인/가구' },
+                        { value: 'business', label: '🏪 소상공인' },
+                        { value: 'corp', label: '🏢 법인/기관' }
+                    ]
+                },
+                {
+                    id: 'region',
+                    type: 'region',
+                    condition: { intro: 'personal' },
+                    message: '거주하시는 지역을 선택해주세요.',
+                    progress: { current: 1, total: 5 }
+                },
+                {
+                    id: 'birthGender',
+                    type: 'birthGender',
+                    condition: { intro: 'personal' },
+                    message: '생년월일과 성별을 알려주세요.',
+                    progress: { current: 2, total: 5 }
+                },
+                {
+                    id: 'income',
+                    type: 'single',
+                    condition: { intro: 'personal' },
+                    message: '가구의 소득 수준을 선택해주세요.\n\n💡 2025년 기준중위소득\n4인가구 기준: 월 약 572만원',
+                    options: [
+                        { value: '0~50', label: '50% 이하', sub: '월 286만원 이하' },
+                        { value: '51~75', label: '51~75%', sub: '월 286~429만원' },
+                        { value: '76~100', label: '76~100%', sub: '월 429~572만원' },
+                        { value: '101~200', label: '101~200%', sub: '월 572~1,145만원' },
+                        { value: '200~', label: '200% 초과', sub: '월 1,145만원 초과' }
+                    ],
+                    gridClass: 'grid-2',
+                    progress: { current: 3, total: 5 }
+                },
+                {
+                    id: 'personalChar',
+                    type: 'multi',
+                    condition: { intro: 'personal' },
+                    message: '해당되는 개인 특성을 모두 선택해주세요.',
+                    options: [
+                        { value: 'JA0101', label: '예비부부/난임' },
+                        { value: 'JA0102', label: '임신부' },
+                        { value: 'JA0103', label: '출산/입양' },
+                        { value: 'JA0201', label: '영유아 자녀' },
+                        { value: 'JA0301', label: '장애인' },
+                        { value: 'JA0302', label: '국가보훈대상자' },
+                        { value: 'JA0401', label: '농업인' },
+                        { value: 'JA0501', label: '중/고등학생' },
+                        { value: 'JA0502', label: '대학생' },
+                        { value: 'JA0601', label: '근로자/직장인' },
+                        { value: 'JA0602', label: '구직자/실업자' },
+                        { value: 'JA9999', label: '해당없음' }
+                    ],
+                    gridClass: 'grid-2',
+                    progress: { current: 4, total: 5 }
+                },
+                {
+                    id: 'familyChar',
+                    type: 'multi',
+                    condition: { intro: 'personal' },
+                    message: '해당되는 가구 특성을 모두 선택해주세요.',
+                    options: [
+                        { value: 'JA0701', label: '다문화가정' },
+                        { value: 'JA0702', label: '북한이탈주민' },
+                        { value: 'JA0703', label: '한부모/조손가정' },
+                        { value: 'JA0704', label: '1인 가구' },
+                        { value: 'JA0705', label: '다자녀 가구' },
+                        { value: 'JA0706', label: '무주택 세대' },
+                        { value: 'JA9999', label: '해당없음' }
+                    ],
+                    gridClass: 'grid-2',
+                    progress: { current: 5, total: 5 }
+                },
+                // 소상공인
+                {
+                    id: 'bizRegion',
+                    type: 'region',
+                    condition: { intro: 'business' },
+                    message: '사업장 소재지를 선택해주세요.',
+                    progress: { current: 1, total: 2 }
+                },
+                {
+                    id: 'bizType',
+                    type: 'single',
+                    condition: { intro: 'business' },
+                    message: '업종을 선택해주세요.',
+                    options: [
+                        { value: 'food', label: '🍽️ 음식점업' },
+                        { value: 'manufacture', label: '🏭 제조업' },
+                        { value: 'retail', label: '🛒 도소매업' },
+                        { value: 'service', label: '💼 서비스업' },
+                        { value: 'other', label: '📦 기타' }
+                    ],
+                    gridClass: 'grid-2',
+                    progress: { current: 2, total: 2 }
+                },
+                // 법인/기관
+                {
+                    id: 'corpRegion',
+                    type: 'region',
+                    condition: { intro: 'corp' },
+                    message: '사업장 소재지를 선택해주세요.',
+                    progress: { current: 1, total: 2 }
+                },
+                {
+                    id: 'corpBizType',
+                    type: 'single',
+                    condition: { intro: 'corp' },
+                    message: '업종을 선택해주세요.',
+                    options: [
+                        { value: 'manufacture', label: '🏭 제조업' },
+                        { value: 'agri', label: '🌾 농림어업' },
+                        { value: 'it', label: '💻 정보통신업' },
+                        { value: 'other', label: '📦 기타' }
+                    ],
+                    gridClass: 'grid-2',
+                    progress: { current: 2, total: 2 }
+                }
             ],
 
+            // ============ REGIONS DATA ============
             regions: {
-                '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
-                '부산': ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
-                '대구': ['남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'],
-                '인천': ['강화군', '계양구', '남동구', '동구', '미추홀구', '부평구', '서구', '연수구', '옹진군', '중구'],
-                '광주': ['광산구', '남구', '동구', '북구', '서구'],
-                '대전': ['대덕구', '동구', '서구', '유성구', '중구'],
-                '울산': ['남구', '동구', '북구', '울주군', '중구'],
+                '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
+                '부산': ['강서구','금정구','기장군','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구'],
+                '대구': ['남구','달서구','달성군','동구','북구','서구','수성구','중구'],
+                '인천': ['강화군','계양구','남동구','동구','미추홀구','부평구','서구','연수구','옹진군','중구'],
+                '광주': ['광산구','남구','동구','북구','서구'],
+                '대전': ['대덕구','동구','서구','유성구','중구'],
+                '울산': ['남구','동구','북구','울주군','중구'],
                 '세종': ['세종시 전체'],
-                '경기': ['가평군', '고양시', '과천시', '광명시', '광주시', '구리시', '군포시', '김포시', '남양주시', '동두천시', '부천시', '성남시', '수원시', '시흥시', '안산시', '안성시', '안양시', '양주시', '양평군', '여주시', '연천군', '오산시', '용인시', '의왕시', '의정부시', '이천시', '파주시', '평택시', '포천시', '하남시', '화성시'],
-                '강원': ['강릉시', '고성군', '동해시', '삼척시', '속초시', '양구군', '양양군', '영월군', '원주시', '인제군', '정선군', '철원군', '춘천시', '태백시', '평창군', '홍천군', '화천군', '횡성군'],
-                '충북': ['괴산군', '단양군', '보은군', '영동군', '옥천군', '음성군', '제천시', '증평군', '진천군', '청주시', '충주시'],
-                '충남': ['계룡시', '공주시', '금산군', '논산시', '당진시', '보령시', '부여군', '서산시', '서천군', '아산시', '예산군', '천안시', '청양군', '태안군', '홍성군'],
-                '전북': ['고창군', '군산시', '김제시', '남원시', '무주군', '부안군', '순창군', '완주군', '익산시', '임실군', '장수군', '전주시', '정읍시', '진안군'],
-                '전남': ['강진군', '고흥군', '곡성군', '광양시', '구례군', '나주시', '담양군', '목포시', '무안군', '보성군', '순천시', '신안군', '여수시', '영광군', '영암군', '완도군', '장성군', '장흥군', '진도군', '함평군', '해남군', '화순군'],
-                '경북': ['경산시', '경주시', '고령군', '구미시', '군위군', '김천시', '문경시', '봉화군', '상주시', '성주군', '안동시', '영덕군', '영양군', '영주시', '영천시', '예천군', '울릉군', '울진군', '의성군', '청도군', '청송군', '칠곡군', '포항시'],
-                '경남': ['거제시', '거창군', '고성군', '김해시', '남해군', '밀양시', '사천시', '산청군', '양산시', '의령군', '진주시', '창녕군', '창원시', '통영시', '하동군', '함안군', '함양군', '합천군'],
-                '제주': ['서귀포시', '제주시']
+                '경기': ['가평군','고양시','과천시','광명시','광주시','구리시','군포시','김포시','남양주시','동두천시','부천시','성남시','수원시','시흥시','안산시','안성시','안양시','양주시','양평군','여주시','연천군','오산시','용인시','의왕시','의정부시','이천시','파주시','평택시','포천시','하남시','화성시'],
+                '강원': ['강릉시','고성군','동해시','삼척시','속초시','양구군','양양군','영월군','원주시','인제군','정선군','철원군','춘천시','태백시','평창군','홍천군','화천군','횡성군'],
+                '충북': ['괴산군','단양군','보은군','영동군','옥천군','음성군','제천시','증평군','진천군','청주시','충주시'],
+                '충남': ['계룡시','공주시','금산군','논산시','당진시','보령시','부여군','서산시','서천군','아산시','예산군','천안시','청양군','태안군','홍성군'],
+                '전북': ['고창군','군산시','김제시','남원시','무주군','부안군','순창군','완주군','익산시','임실군','장수군','전주시','정읍시','진안군'],
+                '전남': ['강진군','고흥군','곡성군','광양시','구례군','나주시','담양군','목포시','무안군','보성군','순천시','신안군','여수시','영광군','영암군','완도군','장성군','장흥군','진도군','함평군','해남군','화순군'],
+                '경북': ['경산시','경주시','고령군','구미시','군위군','김천시','문경시','봉화군','상주시','성주군','안동시','영덕군','영양군','영주시','영천시','예천군','울릉군','울진군','의성군','청도군','청송군','칠곡군','포항시'],
+                '경남': ['거제시','거창군','고성군','김해시','남해군','밀양시','사천시','산청군','양산시','의령군','진주시','창녕군','창원시','통영시','하동군','함안군','함양군','합천군'],
+                '제주': ['서귀포시','제주시']
             },
 
+            // ============ INIT ============
             init() {
                 this.elements = {
-                    messages: document.getElementById('messagesArea'),
-                    inputArea: document.getElementById('inputArea'),
+                    messages: document.getElementById('messagesContainer'),
+                    input: document.getElementById('inputSection'),
                     progressFill: document.getElementById('progressFill'),
-                    progressText: document.getElementById('progressText'),
+                    progressLabel: document.getElementById('progressLabel'),
                     resetBtn: document.getElementById('resetBtn'),
-                    resultModal: document.getElementById('resultModal'),
+                    modal: document.getElementById('resultModal'),
                     modalBody: document.getElementById('modalBody'),
-                    closeBtn: document.getElementById('closeBtn'),
-                    modalOverlay: document.getElementById('modalOverlay')
+                    closeModal: document.getElementById('closeModal'),
+                    modalBackdrop: document.getElementById('modalBackdrop')
                 };
+
                 this.elements.resetBtn.onclick = () => this.reset();
-                this.elements.closeBtn.onclick = () => this.closeModal();
-                this.elements.modalOverlay.onclick = () => this.closeModal();
+                this.elements.closeModal.onclick = () => this.hideModal();
+                this.elements.modalBackdrop.onclick = () => this.hideModal();
+
                 this.showQuestion(0);
             },
 
+            // ============ RESET ============
             reset() {
-                this.state = { step: 0, answers: {}, history: [], currentPage: 1, allServices: [], totalCount: 0 };
+                this.state = {
+                    currentStep: 0,
+                    answers: {},
+                    history: [],
+                    services: [],
+                    totalCount: 0,
+                    currentPage: 1,
+                    debugInfo: null
+                };
                 this.elements.messages.innerHTML = '';
-                this.elements.progressFill.style.width = '0%';
-                this.elements.progressText.textContent = '시작하기';
+                this.updateProgress(null);
                 this.showQuestion(0);
             },
 
-            getNextQuestion(idx) {
-                for (let i = idx + 1; i < this.questions.length; i++) {
+            // ============ NAVIGATION ============
+            findNextQuestion(fromIndex) {
+                for (let i = fromIndex + 1; i < this.questions.length; i++) {
                     const q = this.questions[i];
                     if (!q.condition) return i;
-                    if (Object.entries(q.condition).every(([k, v]) => this.state.answers[k] === v)) return i;
-                }
-                return -1;
-            },
-
-            getPrevQuestion(idx) {
-                for (let i = idx - 1; i >= 0; i--) {
-                    const q = this.questions[i];
-                    if (!q.condition) return i;
-                    if (Object.entries(q.condition).every(([k, v]) => this.state.answers[k] === v)) return i;
+                    const match = Object.entries(q.condition).every(([k, v]) => this.state.answers[k] === v);
+                    if (match) return i;
                 }
                 return -1;
             },
 
             goBack() {
                 if (this.state.history.length === 0) return;
-                
-                // 마지막 히스토리 복원
-                const lastState = this.state.history.pop();
-                
-                // 현재 질문의 답변 삭제
-                const currentQ = this.questions[this.state.step];
+
+                const lastHistory = this.state.history.pop();
+                const currentQ = this.questions[this.state.currentStep];
                 if (currentQ) delete this.state.answers[currentQ.id];
-                
-                // 마지막 사용자 메시지와 봇 메시지 삭제
-                const messages = this.elements.messages.querySelectorAll('.message');
-                let removed = 0;
-                for (let i = messages.length - 1; i >= 0 && removed < 2; i--) {
-                    messages[i].remove();
-                    removed++;
+
+                // 마지막 메시지 2개 삭제 (봇 + 유저)
+                const msgs = this.elements.messages.querySelectorAll('.msg');
+                let toRemove = 2;
+                for (let i = msgs.length - 1; i >= 0 && toRemove > 0; i--) {
+                    msgs[i].remove();
+                    toRemove--;
                 }
-                
-                // 이전 단계로 이동
-                this.state.step = lastState.step;
-                this.showQuestion(lastState.step, true);
+
+                this.state.currentStep = lastHistory.step;
+                this.showQuestion(lastHistory.step, true);
             },
 
-            showQuestion(idx, isBack = false) {
-                const q = this.questions[idx];
-                if (!q) return this.submitAnswers();
-                
-                this.state.step = idx;
-                
-                if (q.progressText) {
-                    const [c, t] = q.progressText.match(/\d+/g);
-                    this.elements.progressFill.style.width = (c / t * 100) + '%';
-                    this.elements.progressText.textContent = q.progressText;
-                } else {
+            // ============ PROGRESS ============
+            updateProgress(progressInfo) {
+                if (!progressInfo) {
                     this.elements.progressFill.style.width = '0%';
-                    this.elements.progressText.textContent = '시작하기';
+                    this.elements.progressLabel.textContent = '시작하기';
+                    return;
                 }
+                const pct = (progressInfo.current / progressInfo.total) * 100;
+                this.elements.progressFill.style.width = pct + '%';
+                this.elements.progressLabel.textContent = `${progressInfo.current}/${progressInfo.total} 단계`;
+            },
+
+            // ============ MESSAGES ============
+            addBotMessage(text) {
+                const div = document.createElement('div');
+                div.className = 'msg bot';
+                div.innerHTML = `
+                    <div class="msg-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </div>
+                    <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+                `;
+                this.elements.messages.appendChild(div);
+                this.scrollToBottom();
+            },
+
+            addUserMessage(text) {
+                const div = document.createElement('div');
+                div.className = 'msg user';
+                div.innerHTML = `<div class="msg-bubble">${text}</div>`;
+                this.elements.messages.appendChild(div);
+                this.scrollToBottom();
+            },
+
+            showTyping() {
+                const div = document.createElement('div');
+                div.className = 'msg bot typing-msg';
+                div.innerHTML = `
+                    <div class="msg-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </div>
+                    <div class="msg-bubble">
+                        <div class="typing-indicator"><span></span><span></span><span></span></div>
+                    </div>
+                `;
+                this.elements.messages.appendChild(div);
+                this.scrollToBottom();
+            },
+
+            hideTyping() {
+                const t = this.elements.messages.querySelector('.typing-msg');
+                if (t) t.remove();
+            },
+
+            scrollToBottom() {
+                this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
+            },
+
+            // ============ SHOW QUESTION ============
+            showQuestion(index, isBack = false) {
+                const q = this.questions[index];
+                if (!q) {
+                    this.submitAnswers();
+                    return;
+                }
+
+                this.state.currentStep = index;
+                this.updateProgress(q.progress || null);
 
                 if (isBack) {
                     this.renderInput(q);
@@ -350,383 +997,485 @@
                     this.hideTyping();
                     this.addBotMessage(q.message);
                     this.renderInput(q);
-                }, 600);
+                }, 500);
             },
 
-            showTyping() {
-                const d = document.createElement('div');
-                d.className = 'message bot typing-msg';
-                d.innerHTML = '<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
-                this.elements.messages.appendChild(d);
-                this.scroll();
-            },
-
-            hideTyping() {
-                const t = this.elements.messages.querySelector('.typing-msg');
-                if (t) t.remove();
-            },
-
-            addBotMessage(txt) {
-                const d = document.createElement('div');
-                d.className = 'message bot';
-                d.innerHTML = '<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble">' + txt.replace(/\n/g, '<br>') + '</div>';
-                this.elements.messages.appendChild(d);
-                this.scroll();
-            },
-
-            addUserMessage(txt) {
-                const d = document.createElement('div');
-                d.className = 'message user';
-                d.innerHTML = '<div class="message-bubble">' + txt + '</div>';
-                this.elements.messages.appendChild(d);
-                this.scroll();
-            },
-
-            scroll() { this.elements.messages.scrollTop = this.elements.messages.scrollHeight; },
-
+            // ============ RENDER INPUT ============
             renderInput(q) {
-                this.elements.inputArea.innerHTML = '';
+                this.elements.input.innerHTML = '';
                 const canGoBack = this.state.history.length > 0;
-                
-                if (q.type === 'single') this.renderSingle(q, canGoBack);
-                else if (q.type === 'multi') this.renderMulti(q, canGoBack);
-                else if (q.type === 'region') this.renderRegion(q, canGoBack);
-                else if (q.type === 'birthGender') this.renderBirthGender(q, canGoBack);
+
+                switch (q.type) {
+                    case 'single': this.renderSingle(q, canGoBack); break;
+                    case 'multi': this.renderMulti(q, canGoBack); break;
+                    case 'region': this.renderRegion(q, canGoBack); break;
+                    case 'birthGender': this.renderBirthGender(q, canGoBack); break;
+                }
             },
 
-            createBackBtn() {
+            createBackButton() {
                 const btn = document.createElement('button');
-                btn.className = 'back-btn';
-                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>이전';
+                btn.className = 'btn-back';
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                    이전
+                `;
                 btn.onclick = () => this.goBack();
                 return btn;
             },
 
             renderSingle(q, canGoBack) {
-                const c = document.createElement('div');
-                c.className = 'options-grid ' + (q.gridClass || '');
-                q.options.forEach(o => {
-                    const b = document.createElement('button');
-                    b.className = 'option-btn';
-                    b.innerHTML = o.sub ? o.label + '<span class="sub-text">' + o.sub + '</span>' : o.label;
-                    b.onclick = () => {
-                        // 히스토리 저장
-                        this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
-                        
-                        this.addUserMessage(o.label);
-                        this.state.answers[q.id] = o.value;
-                        this.next();
+                const container = document.createElement('div');
+                container.className = 'options-list ' + (q.gridClass || '');
+
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-option';
+                    btn.innerHTML = opt.sub
+                        ? `${opt.label}<span class="sub">${opt.sub}</span>`
+                        : opt.label;
+                    btn.onclick = () => {
+                        this.state.history.push({ step: this.state.currentStep });
+                        this.addUserMessage(opt.label);
+                        this.state.answers[q.id] = opt.value;
+                        this.proceedNext();
                     };
-                    c.appendChild(b);
+                    container.appendChild(btn);
                 });
-                this.elements.inputArea.appendChild(c);
-                
+
+                this.elements.input.appendChild(container);
+
                 if (canGoBack) {
-                    const btnGroup = document.createElement('div');
-                    btnGroup.className = 'btn-group';
-                    btnGroup.appendChild(this.createBackBtn());
-                    this.elements.inputArea.appendChild(btnGroup);
+                    const row = document.createElement('div');
+                    row.className = 'action-row';
+                    row.appendChild(this.createBackButton());
+                    this.elements.input.appendChild(row);
                 }
             },
 
             renderMulti(q, canGoBack) {
-                const c = document.createElement('div');
-                c.className = 'options-grid ' + (q.gridClass || '');
-                const sel = new Set();
-                q.options.forEach(o => {
-                    const b = document.createElement('button');
-                    b.className = 'option-btn multi';
-                    b.textContent = o.label;
-                    b.dataset.value = o.value;
-                    b.onclick = () => {
-                        if (o.value === 'JA9999') {
-                            sel.clear();
-                            c.querySelectorAll('.option-btn').forEach(x => x.classList.remove('selected'));
-                            b.classList.add('selected');
-                            sel.add(o.value);
+                const container = document.createElement('div');
+                container.className = 'options-list ' + (q.gridClass || '');
+                const selected = new Set();
+
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-option multi';
+                    btn.textContent = opt.label;
+                    btn.dataset.value = opt.value;
+                    btn.onclick = () => {
+                        if (opt.value === 'JA9999') {
+                            selected.clear();
+                            container.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+                            btn.classList.add('selected');
+                            selected.add(opt.value);
                         } else {
-                            const none = c.querySelector('[data-value="JA9999"]');
-                            if (none) { none.classList.remove('selected'); sel.delete('JA9999'); }
-                            if (sel.has(o.value)) { sel.delete(o.value); b.classList.remove('selected'); }
-                            else { sel.add(o.value); b.classList.add('selected'); }
+                            const noneBtn = container.querySelector('[data-value="JA9999"]');
+                            if (noneBtn) {
+                                noneBtn.classList.remove('selected');
+                                selected.delete('JA9999');
+                            }
+                            if (selected.has(opt.value)) {
+                                selected.delete(opt.value);
+                                btn.classList.remove('selected');
+                            } else {
+                                selected.add(opt.value);
+                                btn.classList.add('selected');
+                            }
                         }
-                        conf.disabled = sel.size === 0;
+                        confirmBtn.disabled = selected.size === 0;
                     };
-                    c.appendChild(b);
+                    container.appendChild(btn);
                 });
-                
-                const btnGroup = document.createElement('div');
-                btnGroup.className = 'btn-group';
-                
+
+                const actionRow = document.createElement('div');
+                actionRow.className = 'action-row';
+
                 if (canGoBack) {
-                    btnGroup.appendChild(this.createBackBtn());
+                    actionRow.appendChild(this.createBackButton());
                 }
-                
-                const conf = document.createElement('button');
-                conf.className = 'confirm-btn';
-                conf.textContent = '선택 완료';
-                conf.disabled = true;
-                conf.onclick = () => {
-                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
-                    const labels = [...sel].map(v => q.options.find(x => x.value === v)?.label || v);
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'btn-confirm';
+                confirmBtn.textContent = '선택 완료';
+                confirmBtn.disabled = true;
+                confirmBtn.onclick = () => {
+                    this.state.history.push({ step: this.state.currentStep });
+                    const labels = [...selected].map(v => q.options.find(o => o.value === v)?.label || v);
                     this.addUserMessage(labels.join(', '));
-                    this.state.answers[q.id] = [...sel];
-                    this.next();
+                    this.state.answers[q.id] = [...selected];
+                    this.proceedNext();
                 };
-                btnGroup.appendChild(conf);
-                
-                this.elements.inputArea.appendChild(c);
-                this.elements.inputArea.appendChild(btnGroup);
+                actionRow.appendChild(confirmBtn);
+
+                this.elements.input.appendChild(container);
+                this.elements.input.appendChild(actionRow);
             },
 
             renderRegion(q, canGoBack) {
-                const c = document.createElement('div');
-                c.className = 'select-wrap';
-                const s1 = document.createElement('select');
-                s1.className = 'custom-select';
-                s1.innerHTML = '<option value="">시/도 선택</option>' + Object.keys(this.regions).map(r => '<option value="' + r + '">' + r + '</option>').join('');
-                const s2 = document.createElement('select');
-                s2.className = 'custom-select';
-                s2.innerHTML = '<option value="">시/군/구 선택</option>';
-                s2.disabled = true;
-                s1.onchange = () => {
-                    s2.innerHTML = '<option value="">시/군/구 선택</option>';
-                    if (s1.value && this.regions[s1.value]) {
-                        s2.disabled = false;
-                        s2.innerHTML += this.regions[s1.value].map(g => '<option value="' + g + '">' + g + '</option>').join('');
-                    } else s2.disabled = true;
-                    conf.disabled = true;
+                const container = document.createElement('div');
+                container.className = 'select-group';
+
+                const sidoSelect = document.createElement('select');
+                sidoSelect.className = 'custom-select';
+                sidoSelect.innerHTML = '<option value="">시/도 선택</option>' +
+                    Object.keys(this.regions).map(r => `<option value="${r}">${r}</option>`).join('');
+
+                const gugunSelect = document.createElement('select');
+                gugunSelect.className = 'custom-select';
+                gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
+                gugunSelect.disabled = true;
+
+                sidoSelect.onchange = () => {
+                    gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
+                    if (sidoSelect.value && this.regions[sidoSelect.value]) {
+                        gugunSelect.disabled = false;
+                        gugunSelect.innerHTML += this.regions[sidoSelect.value]
+                            .map(g => `<option value="${g}">${g}</option>`).join('');
+                    } else {
+                        gugunSelect.disabled = true;
+                    }
+                    confirmBtn.disabled = true;
                 };
-                s2.onchange = () => { conf.disabled = !s2.value; };
-                
-                const btnGroup = document.createElement('div');
-                btnGroup.className = 'btn-group';
-                
+
+                gugunSelect.onchange = () => {
+                    confirmBtn.disabled = !gugunSelect.value;
+                };
+
+                const actionRow = document.createElement('div');
+                actionRow.className = 'action-row';
+
                 if (canGoBack) {
-                    btnGroup.appendChild(this.createBackBtn());
+                    actionRow.appendChild(this.createBackButton());
                 }
-                
-                const conf = document.createElement('button');
-                conf.className = 'confirm-btn';
-                conf.textContent = '선택 완료';
-                conf.disabled = true;
-                conf.onclick = () => {
-                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
-                    this.addUserMessage(s1.value + ' ' + s2.value);
-                    this.state.answers[q.id] = { sido: s1.value, gugun: s2.value };
-                    this.next();
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'btn-confirm';
+                confirmBtn.textContent = '선택 완료';
+                confirmBtn.disabled = true;
+                confirmBtn.onclick = () => {
+                    this.state.history.push({ step: this.state.currentStep });
+                    this.addUserMessage(`${sidoSelect.value} ${gugunSelect.value}`);
+                    this.state.answers[q.id] = { sido: sidoSelect.value, gugun: gugunSelect.value };
+                    this.proceedNext();
                 };
-                btnGroup.appendChild(conf);
-                
-                c.appendChild(s1);
-                c.appendChild(s2);
-                this.elements.inputArea.appendChild(c);
-                this.elements.inputArea.appendChild(btnGroup);
+                actionRow.appendChild(confirmBtn);
+
+                container.appendChild(sidoSelect);
+                container.appendChild(gugunSelect);
+                this.elements.input.appendChild(container);
+                this.elements.input.appendChild(actionRow);
             },
 
             renderBirthGender(q, canGoBack) {
-                const c = document.createElement('div');
-                c.className = 'birth-wrap';
-                c.innerHTML = '<div class="birth-section"><div class="birth-label">생년월일</div><div class="birth-row"><div class="birth-input-wrap year"><input type="number" class="birth-input" id="yearInput" placeholder="1990" min="1900" max="2025"></div><span class="birth-suffix">년</span><div class="birth-input-wrap"><input type="number" class="birth-input" id="monthInput" placeholder="1" min="1" max="12"></div><span class="birth-suffix">월</span><div class="birth-input-wrap"><input type="number" class="birth-input" id="dayInput" placeholder="1" min="1" max="31"></div><span class="birth-suffix">일</span></div></div><div class="birth-section"><div class="birth-label">성별</div><div class="gender-btns" id="genderBtns"><button class="option-btn" data-g="M">남성</button><button class="option-btn" data-g="F">여성</button></div></div>';
-                this.elements.inputArea.appendChild(c);
-                
-                const btnGroup = document.createElement('div');
-                btnGroup.className = 'btn-group';
-                
-                if (canGoBack) {
-                    btnGroup.appendChild(this.createBackBtn());
-                }
-                
-                const conf = document.createElement('button');
-                conf.className = 'confirm-btn';
-                conf.textContent = '선택 완료';
-                conf.disabled = true;
-                btnGroup.appendChild(conf);
-                this.elements.inputArea.appendChild(btnGroup);
+                const container = document.createElement('div');
+                container.className = 'birth-form';
+                container.innerHTML = `
+                    <div class="form-group">
+                        <div class="form-label">생년월일</div>
+                        <div class="birth-inputs">
+                            <div class="input-wrap wide">
+                                <input type="number" class="birth-input" id="inputYear" placeholder="1990" min="1900" max="2025">
+                            </div>
+                            <span class="input-suffix">년</span>
+                            <div class="input-wrap">
+                                <input type="number" class="birth-input" id="inputMonth" placeholder="1" min="1" max="12">
+                            </div>
+                            <span class="input-suffix">월</span>
+                            <div class="input-wrap">
+                                <input type="number" class="birth-input" id="inputDay" placeholder="1" min="1" max="31">
+                            </div>
+                            <span class="input-suffix">일</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">성별</div>
+                        <div class="gender-buttons" id="genderButtons">
+                            <button class="btn-option" data-gender="M">남성</button>
+                            <button class="btn-option" data-gender="F">여성</button>
+                        </div>
+                    </div>
+                `;
+                this.elements.input.appendChild(container);
 
-                const yI = document.getElementById('yearInput');
-                const mI = document.getElementById('monthInput');
-                const dI = document.getElementById('dayInput');
-                const gB = document.getElementById('genderBtns');
-                let gender = '';
-                
-                const check = () => {
-                    const y = yI.value, m = mI.value, d = dI.value;
-                    conf.disabled = !(y && y.length === 4 && m && d && gender);
+                const actionRow = document.createElement('div');
+                actionRow.className = 'action-row';
+
+                if (canGoBack) {
+                    actionRow.appendChild(this.createBackButton());
+                }
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'btn-confirm';
+                confirmBtn.textContent = '선택 완료';
+                confirmBtn.disabled = true;
+                actionRow.appendChild(confirmBtn);
+                this.elements.input.appendChild(actionRow);
+
+                const yearInput = document.getElementById('inputYear');
+                const monthInput = document.getElementById('inputMonth');
+                const dayInput = document.getElementById('inputDay');
+                const genderBtns = document.getElementById('genderButtons');
+                let selectedGender = '';
+
+                const validate = () => {
+                    const y = yearInput.value;
+                    const m = monthInput.value;
+                    const d = dayInput.value;
+                    confirmBtn.disabled = !(y && y.length === 4 && m && d && selectedGender);
                 };
-                [yI, mI, dI].forEach(i => i.oninput = check);
-                gB.querySelectorAll('.option-btn').forEach(b => {
-                    b.onclick = () => {
-                        gB.querySelectorAll('.option-btn').forEach(x => x.classList.remove('selected'));
-                        b.classList.add('selected');
-                        gender = b.dataset.g;
-                        check();
+
+                [yearInput, monthInput, dayInput].forEach(inp => inp.oninput = validate);
+
+                genderBtns.querySelectorAll('.btn-option').forEach(btn => {
+                    btn.onclick = () => {
+                        genderBtns.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedGender = btn.dataset.gender;
+                        validate();
                     };
                 });
-                conf.onclick = () => {
-                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
-                    this.addUserMessage(yI.value + '년 ' + mI.value.padStart(2, '0') + '월 ' + dI.value.padStart(2, '0') + '일, ' + (gender === 'M' ? '남성' : '여성'));
-                    this.state.answers[q.id] = { year: yI.value, month: mI.value.padStart(2, '0'), day: dI.value.padStart(2, '0'), gender };
-                    this.next();
+
+                confirmBtn.onclick = () => {
+                    this.state.history.push({ step: this.state.currentStep });
+                    const y = yearInput.value;
+                    const m = monthInput.value.padStart(2, '0');
+                    const d = dayInput.value.padStart(2, '0');
+                    const genderText = selectedGender === 'M' ? '남성' : '여성';
+                    this.addUserMessage(`${y}년 ${m}월 ${d}일, ${genderText}`);
+                    this.state.answers[q.id] = { year: y, month: m, day: d, gender: selectedGender };
+                    this.proceedNext();
                 };
             },
 
-            next() {
-                this.elements.inputArea.innerHTML = '';
-                const n = this.getNextQuestion(this.state.step);
-                if (n === -1) this.submitAnswers();
-                else setTimeout(() => this.showQuestion(n), 300);
+            // ============ PROCEED ============
+            proceedNext() {
+                this.elements.input.innerHTML = '';
+                const next = this.findNextQuestion(this.state.currentStep);
+                if (next === -1) {
+                    this.submitAnswers();
+                } else {
+                    setTimeout(() => this.showQuestion(next), 300);
+                }
             },
 
+            // ============ SUBMIT ============
             async submitAnswers() {
                 this.elements.progressFill.style.width = '100%';
-                this.elements.progressText.textContent = '검색 중...';
+                this.elements.progressLabel.textContent = '검색 중...';
                 this.showTyping();
 
                 try {
-                    const res = await fetch(CONFIG.API_PROXY_URL, {
+                    console.log('Submitting answers:', this.state.answers);
+
+                    const response = await fetch(CONFIG.API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(this.state.answers)
                     });
 
-                    if (!res.ok) throw new Error('API 오류: ' + res.status);
-                    
-                    const data = await res.json();
-                    if (data.error) throw new Error(data.message || 'API 오류');
+                    if (!response.ok) {
+                        throw new Error(`서버 응답 오류: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log('API Response:', data);
+
+                    if (data.error) {
+                        throw new Error(data.message || 'API 오류');
+                    }
 
                     // 최대 1000개 제한
-                    this.state.allServices = (data.services || []).slice(0, CONFIG.MAX_ITEMS);
-                    this.state.totalCount = data.totalCount || 0;
+                    this.state.services = (data.services || []).slice(0, CONFIG.MAX_ITEMS);
+                    this.state.totalCount = data.totalCount || this.state.services.length;
                     this.state.currentPage = 1;
+                    this.state.debugInfo = data.debug || null;
 
                     this.hideTyping();
-                    this.addBotMessage('🎉 검색이 완료되었어요!\n\n총 <strong>' + this.state.totalCount.toLocaleString() + '개</strong>의 맞춤 지원금을 찾았습니다.\n\n⭐ 추천 표시는 입력하신 조건에 적합한 지원금이에요!');
-                    setTimeout(() => this.renderModal(), 500);
-                } catch (e) {
-                    console.error('Error:', e);
+
+                    const recCount = this.state.services.filter(s => s._score > 0).length;
+                    let msg = `🎉 검색이 완료되었어요!\n\n총 <strong>${this.state.totalCount.toLocaleString()}개</strong>의 지원금을 찾았습니다.`;
+                    if (recCount > 0) {
+                        msg += `\n\n⭐ 입력하신 조건에 맞는 <strong>${recCount}개</strong>의 추천 지원금이 상단에 표시됩니다!`;
+                    }
+                    this.addBotMessage(msg);
+
+                    setTimeout(() => this.showModal(), 400);
+
+                } catch (err) {
+                    console.error('Submit error:', err);
                     this.hideTyping();
-                    this.addBotMessage('죄송합니다. 검색 중 오류가 발생했습니다.\n\n오류: ' + e.message + '\n\n잠시 후 다시 시도해주세요.');
+                    this.addBotMessage(`죄송합니다. 검색 중 오류가 발생했습니다.\n\n오류: ${err.message}\n\n잠시 후 다시 시도해주세요.`);
                 }
             },
 
-            renderModal() {
-                const { allServices, totalCount, currentPage } = this.state;
+            // ============ MODAL ============
+            showModal() {
+                this.renderModalContent();
+                this.elements.modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            },
+
+            hideModal() {
+                this.elements.modal.classList.remove('show');
+                document.body.style.overflow = '';
+            },
+
+            renderModalContent() {
+                const { services, totalCount, currentPage, debugInfo } = this.state;
                 const perPage = CONFIG.ITEMS_PER_PAGE;
-                const totalPages = Math.ceil(allServices.length / perPage);
-                const start = (currentPage - 1) * perPage;
-                const end = Math.min(start + perPage, allServices.length);
-                const pageServices = allServices.slice(start, end);
+                const totalPages = Math.ceil(services.length / perPage);
+                const startIdx = (currentPage - 1) * perPage;
+                const endIdx = Math.min(startIdx + perPage, services.length);
+                const pageItems = services.slice(startIdx, endIdx);
 
                 let html = '';
-                if (totalCount === 0 || allServices.length === 0) {
-                    html = '<div class="no-result"><div class="no-result-icon">🔍</div><div class="no-result-title">검색 결과가 없습니다</div><div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.</div></div>';
+
+                if (services.length === 0) {
+                    html = `
+                        <div class="no-results">
+                            <div class="no-results-icon">🔍</div>
+                            <div class="no-results-title">검색 결과가 없습니다</div>
+                            <div class="no-results-desc">선택하신 조건에 맞는 지원금이 없습니다.</div>
+                        </div>
+                    `;
                 } else {
                     // 통계
-                    html = '<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">' + totalCount.toLocaleString() + '</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">' + allServices.length.toLocaleString() + '</div><div class="stat-label">표시 가능 (최대 1,000개)</div></div></div>';
-                    
-                    // 상단 네비게이션 (이전/다음 페이지)
-                    html += '<div class="top-nav">';
-                    html += '<button class="top-nav-btn" data-action="prev"' + (currentPage === 1 ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>이전 페이지</button>';
-                    html += '<span class="top-nav-info">' + currentPage + ' / ' + totalPages + ' 페이지</span>';
-                    html += '<button class="top-nav-btn" data-action="next"' + (currentPage === totalPages ? ' disabled' : '') + '>다음 페이지<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>';
-                    html += '</div>';
-                    
+                    const recCount = services.filter(s => s._score > 0).length;
+                    html += `
+                        <div class="stats-grid">
+                            <div class="stat-box primary">
+                                <div class="stat-value">${totalCount.toLocaleString()}</div>
+                                <div class="stat-label">전체 검색 결과</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">${recCount.toLocaleString()}</div>
+                                <div class="stat-label">맞춤 추천</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // 상단 네비게이션
+                    html += `
+                        <div class="page-nav">
+                            <button class="page-nav-btn" data-nav="prev" ${currentPage === 1 ? 'disabled' : ''}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"/>
+                                </svg>
+                                이전
+                            </button>
+                            <span class="page-nav-info">${currentPage} / ${totalPages} 페이지</span>
+                            <button class="page-nav-btn" data-nav="next" ${currentPage === totalPages ? 'disabled' : ''}>
+                                다음
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+
                     // 결과 목록
-                    html += '<div class="result-list">';
-                    pageServices.forEach((s, i) => {
-                        const gIdx = start + i;
-                        const name = s.servNm || '정보 없음';
-                        const desc = s.servDgst || s.tgtrDtlCn || '';
-                        const org = s.jurMnofNm || '';
-                        const category = s.svcfldNm || '지원금';
-                        const servId = s.servId || '';
-                        const detailLink = s.servDtlLink || '';
-                        const isRec = s._matchScore > 0 && gIdx < 5;
+                    html += '<div class="results-list">';
+                    pageItems.forEach((item, idx) => {
+                        const globalIdx = startIdx + idx;
+                        const isRecommended = item._score > 0 && globalIdx < 10;
 
+                        // 링크 생성
                         let link = '';
-                        if (detailLink && detailLink.startsWith('http')) {
-                            link = detailLink;
-                        } else if (servId) {
-                            link = 'https://www.gov.kr/portal/rcvfvrSvc/dtlEx/' + servId;
+                        if (item.servDtlLink && item.servDtlLink.startsWith('http')) {
+                            link = item.servDtlLink;
+                        } else if (item.servId && item.servId !== `item-${item._index}`) {
+                            link = `https://www.gov.kr/portal/rcvfvrSvc/dtlEx/${item.servId}`;
                         }
 
-                        html += '<div class="result-card' + (isRec ? ' recommended' : '') + '">';
-                        html += '<span class="result-badge">' + category + '</span>';
-                        html += '<h4 class="result-title">' + (gIdx + 1) + '. ' + name + '</h4>';
-                        if (org) html += '<p class="result-org">' + org + '</p>';
-                        if (desc) html += '<p class="result-desc">' + desc + '</p>';
-                        if (link) {
-                            html += '<a href="' + link + '" target="_blank" rel="noopener" class="result-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>';
-                        }
-                        html += '</div>';
+                        html += `
+                            <div class="result-item${isRecommended ? ' recommended' : ''}">
+                                <span class="result-badge">${item.svcfldNm || '지원금'}</span>
+                                <h4 class="result-title">${globalIdx + 1}. ${item.servNm}</h4>
+                                ${item.jurMnofNm ? `<p class="result-org">${item.jurMnofNm}</p>` : ''}
+                                ${item.servDgst ? `<p class="result-desc">${item.servDgst}</p>` : ''}
+                                ${link ? `
+                                    <a href="${link}" target="_blank" rel="noopener noreferrer" class="result-link">
+                                        자세히 보기
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                            <polyline points="15 3 21 3 21 9"/>
+                                            <line x1="10" y1="14" x2="21" y2="3"/>
+                                        </svg>
+                                    </a>
+                                ` : ''}
+                            </div>
+                        `;
                     });
                     html += '</div>';
 
                     // 하단 페이지 번호
                     if (totalPages > 1) {
                         html += '<div class="pagination">';
-                        
+
                         // 첫 페이지
                         if (currentPage > 3) {
-                            html += '<button class="page-btn" data-page="1">1</button>';
-                            if (currentPage > 4) html += '<span class="page-btn ellipsis">...</span>';
+                            html += `<button class="page-num" data-page="1">1</button>`;
+                            if (currentPage > 4) html += `<span class="page-num dots">...</span>`;
                         }
-                        
+
                         // 현재 페이지 주변
                         for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
-                            html += '<button class="page-btn' + (i === currentPage ? ' active' : '') + '" data-page="' + i + '">' + i + '</button>';
+                            html += `<button class="page-num${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</button>`;
                         }
-                        
+
                         // 마지막 페이지
                         if (currentPage < totalPages - 2) {
-                            if (currentPage < totalPages - 3) html += '<span class="page-btn ellipsis">...</span>';
-                            html += '<button class="page-btn" data-page="' + totalPages + '">' + totalPages + '</button>';
+                            if (currentPage < totalPages - 3) html += `<span class="page-num dots">...</span>`;
+                            html += `<button class="page-num" data-page="${totalPages}">${totalPages}</button>`;
                         }
-                        
+
                         html += '</div>';
                     }
                 }
 
+                // 디버그 패널
+                if (CONFIG.DEBUG && debugInfo) {
+                    html += `
+                        <div class="debug-panel show">
+                            <div class="debug-title">🔧 Debug Info</div>
+                            <div class="debug-content">${JSON.stringify(debugInfo, null, 2)}</div>
+                        </div>
+                    `;
+                }
+
                 this.elements.modalBody.innerHTML = html;
-                
-                // 상단 네비 이벤트
-                const topNav = this.elements.modalBody.querySelector('.top-nav');
-                if (topNav) {
-                    topNav.onclick = (e) => {
-                        const btn = e.target.closest('.top-nav-btn');
-                        if (!btn || btn.disabled) return;
-                        const action = btn.dataset.action;
-                        if (action === 'prev') this.state.currentPage = Math.max(1, this.state.currentPage - 1);
-                        else if (action === 'next') this.state.currentPage = Math.min(totalPages, this.state.currentPage + 1);
-                        this.renderModal();
+
+                // 이벤트 바인딩 - 상단 네비게이션
+                const navBtns = this.elements.modalBody.querySelectorAll('.page-nav-btn');
+                navBtns.forEach(btn => {
+                    btn.onclick = () => {
+                        if (btn.disabled) return;
+                        const nav = btn.dataset.nav;
+                        if (nav === 'prev') this.state.currentPage = Math.max(1, this.state.currentPage - 1);
+                        if (nav === 'next') this.state.currentPage = Math.min(totalPages, this.state.currentPage + 1);
+                        this.renderModalContent();
                         this.elements.modalBody.scrollTop = 0;
                     };
-                }
-                
-                // 하단 페이지 번호 이벤트
-                const pag = this.elements.modalBody.querySelector('.pagination');
-                if (pag) {
-                    pag.onclick = (e) => {
-                        const btn = e.target.closest('.page-btn');
-                        if (!btn || btn.classList.contains('ellipsis') || btn.classList.contains('active')) return;
+                });
+
+                // 이벤트 바인딩 - 하단 페이지 번호
+                const pageBtns = this.elements.modalBody.querySelectorAll('.page-num[data-page]');
+                pageBtns.forEach(btn => {
+                    btn.onclick = () => {
+                        if (btn.classList.contains('active')) return;
                         this.state.currentPage = parseInt(btn.dataset.page);
-                        this.renderModal();
+                        this.renderModalContent();
                         this.elements.modalBody.scrollTop = 0;
                     };
-                }
-
-                this.elements.resultModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            },
-
-            closeModal() {
-                this.elements.resultModal.classList.remove('active');
-                document.body.style.overflow = '';
+                });
             }
         };
 
-        document.addEventListener('DOMContentLoaded', () => Chatbot.init());
+        // ============ START ============
+        document.addEventListener('DOMContentLoaded', () => App.init());
     })();
     </script>
 </body>
