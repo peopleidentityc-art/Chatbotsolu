@@ -844,14 +844,11 @@
 
         // ===== 설정 =====
         const CONFIG = {
-            // ⚠️ 프록시 서버 URL (보안을 위해 별도 서버 필요)
-            // 옵션 1: Cloudflare Workers (무료)
-            // 옵션 2: Vercel Serverless Functions (무료)
-            // 옵션 3: 자체 서버
-            API_PROXY_URL: '', // 여기에 프록시 서버 URL 입력
+            // Cloudflare Workers 프록시 URL
+            API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
             
-            // 데모 모드 (프록시 서버 없을 때 더미 데이터 사용)
-            DEMO_MODE: true
+            // 데모 모드 (false = 실제 API 사용)
+            DEMO_MODE: false
         };
 
         // ===== 챗봇 클래스 =====
