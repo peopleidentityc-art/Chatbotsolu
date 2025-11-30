@@ -11,14 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== CSS 변수 ===== */
         :root {
             --primary: #2563EB;
             --primary-light: #3B82F6;
             --primary-dark: #1D4ED8;
             --primary-50: #EFF6FF;
             --primary-100: #DBEAFE;
-            
             --gray-900: #111827;
             --gray-800: #1F2937;
             --gray-700: #374151;
@@ -30,50 +28,23 @@
             --gray-100: #F3F4F6;
             --gray-50: #F9FAFB;
             --white: #FFFFFF;
-            
             --gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-            --gradient-purple: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
-            
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            
             --radius-sm: 8px;
             --radius: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
             --radius-full: 9999px;
-            
             --font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            
-            --transition-fast: 0.15s ease;
             --transition: 0.2s ease;
-            --transition-slow: 0.3s ease;
         }
 
-        /* ===== 리셋 ===== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: var(--font-family); background: var(--gray-50); -webkit-font-smoothing: antialiased; }
+        button, input, select { font-family: inherit; }
+        button { cursor: pointer; }
 
-        html, body {
-            height: 100%;
-            font-family: var(--font-family);
-            background: var(--gray-50);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        /* ===== 챗봇 컨테이너 ===== */
         .chatbot-wrapper {
             min-height: 100vh;
             min-height: 100dvh;
@@ -96,7 +67,6 @@
             max-height: calc(100dvh - 32px);
         }
 
-        /* ===== 헤더 ===== */
         .chatbot-header {
             display: flex;
             align-items: center;
@@ -116,29 +86,10 @@
             justify-content: center;
             flex-shrink: 0;
         }
-
-        .header-icon svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        .header-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .header-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
-
-        .header-subtitle {
-            font-size: 0.813rem;
-            opacity: 0.9;
-            line-height: 1.4;
-        }
+        .header-icon svg { width: 28px; height: 28px; }
+        .header-text { flex: 1; min-width: 0; }
+        .header-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+        .header-subtitle { font-size: 0.813rem; opacity: 0.9; }
 
         .reset-btn {
             width: 40px;
@@ -151,19 +102,10 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
-            flex-shrink: 0;
         }
+        .reset-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .reset-btn svg { width: 20px; height: 20px; }
 
-        .reset-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .reset-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* ===== 진행바 ===== */
         .progress-wrap {
             padding: 12px 20px;
             background: var(--gray-50);
@@ -172,31 +114,10 @@
             align-items: center;
             gap: 12px;
         }
+        .progress-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: var(--radius-full); overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--gradient-primary); border-radius: var(--radius-full); transition: width 0.4s ease; width: 0%; }
+        .progress-text { font-size: 0.75rem; font-weight: 600; color: var(--gray-500); white-space: nowrap; }
 
-        .progress-bar {
-            flex: 1;
-            height: 6px;
-            background: var(--gray-200);
-            border-radius: var(--radius-full);
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-full);
-            transition: width 0.4s ease;
-            width: 0%;
-        }
-
-        .progress-text {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--gray-500);
-            white-space: nowrap;
-        }
-
-        /* ===== 메시지 영역 ===== */
         .messages-area {
             flex: 1;
             overflow-y: auto;
@@ -208,120 +129,27 @@
             min-height: 320px;
         }
 
-        /* 메시지 공통 */
-        .message {
-            display: flex;
-            gap: 8px;
-            max-width: 90%;
-            animation: msgFadeIn 0.3s ease;
-        }
+        .message { display: flex; gap: 8px; max-width: 90%; animation: msgFadeIn 0.3s ease; }
+        @keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.bot { align-self: flex-start; }
+        .message-avatar { width: 36px; height: 36px; background: var(--gradient-primary); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .message-avatar svg { width: 20px; height: 20px; color: var(--white); }
+        .message-bubble { padding: 14px 16px; border-radius: var(--radius); font-size: 0.938rem; line-height: 1.6; }
+        .message.bot .message-bubble { background: var(--gray-100); color: var(--gray-800); border-top-left-radius: 4px; }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message.user .message-bubble { background: var(--gradient-primary); color: var(--white); border-top-right-radius: 4px; padding: 10px 16px; }
 
-        @keyframes msgFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 봇 메시지 */
-        .message.bot {
-            align-self: flex-start;
-        }
-
-        .message-avatar {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .message-avatar svg {
-            width: 20px;
-            height: 20px;
-            color: var(--white);
-        }
-
-        .message-bubble {
-            padding: 14px 16px;
-            border-radius: var(--radius);
-            font-size: 0.938rem;
-            line-height: 1.6;
-        }
-
-        .message.bot .message-bubble {
-            background: var(--gray-100);
-            color: var(--gray-800);
-            border-top-left-radius: 4px;
-        }
-
-        /* 사용자 메시지 */
-        .message.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .message.user .message-bubble {
-            background: var(--gradient-primary);
-            color: var(--white);
-            border-top-right-radius: 4px;
-            padding: 10px 16px;
-        }
-
-        /* 타이핑 */
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-            padding: 14px 16px;
-        }
-
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            background: var(--gray-400);
-            border-radius: 50%;
-            animation: bounce 1.4s ease-in-out infinite;
-        }
-
+        .typing-dots { display: flex; gap: 4px; padding: 14px 16px; }
+        .typing-dots span { width: 8px; height: 8px; background: var(--gray-400); border-radius: 50%; animation: bounce 1.4s ease-in-out infinite; }
         .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
 
-        @keyframes bounce {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-8px); }
-        }
+        .input-area { padding: 16px 20px 20px; background: var(--white); border-top: 1px solid var(--gray-100); }
+        .options-grid { display: flex; flex-direction: column; gap: 8px; }
+        .options-grid.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .options-grid.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
 
-        /* ===== 입력 영역 ===== */
-        .input-area {
-            padding: 16px 20px 20px;
-            background: var(--white);
-            border-top: 1px solid var(--gray-100);
-        }
-
-        .options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .options-grid.cols-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .options-grid.cols-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        /* 옵션 버튼 */
         .option-btn {
             background: var(--white);
             border: 2px solid var(--gray-200);
@@ -334,61 +162,17 @@
             text-align: center;
             line-height: 1.4;
         }
+        .option-btn:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
+        .option-btn:active { transform: scale(0.98); }
+        .option-btn.selected { border-color: var(--primary); background: var(--primary); color: var(--white); }
+        .option-btn .sub-text { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 4px; }
+        .option-btn.selected .sub-text { opacity: 0.9; }
 
-        .option-btn:hover {
-            border-color: var(--primary);
-            background: var(--primary-50);
-            color: var(--primary);
-        }
+        .option-btn.multi { position: relative; padding-left: 44px; text-align: left; }
+        .option-btn.multi::before { content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 4px; transition: var(--transition); }
+        .option-btn.multi.selected::before { background: var(--primary); border-color: var(--primary); }
+        .option-btn.multi.selected::after { content: ''; position: absolute; left: 19px; top: 50%; transform: translateY(-60%) rotate(45deg); width: 5px; height: 10px; border: solid var(--white); border-width: 0 2px 2px 0; }
 
-        .option-btn:active {
-            transform: scale(0.98);
-        }
-
-        .option-btn.selected {
-            border-color: var(--primary);
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        /* 멀티셀렉트 */
-        .option-btn.multi {
-            position: relative;
-            padding-left: 44px;
-            text-align: left;
-        }
-
-        .option-btn.multi::before {
-            content: '';
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--gray-300);
-            border-radius: 4px;
-            transition: var(--transition);
-        }
-
-        .option-btn.multi.selected::before {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .option-btn.multi.selected::after {
-            content: '';
-            position: absolute;
-            left: 19px;
-            top: 50%;
-            transform: translateY(-60%) rotate(45deg);
-            width: 5px;
-            height: 10px;
-            border: solid var(--white);
-            border-width: 0 2px 2px 0;
-        }
-
-        /* 확인 버튼 */
         .confirm-btn {
             width: 100%;
             background: var(--gradient-primary);
@@ -401,33 +185,16 @@
             transition: var(--transition);
             margin-top: 8px;
         }
+        .confirm-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .confirm-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .confirm-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* 셀렉트 */
-        .select-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .select-wrap { display: flex; flex-direction: column; gap: 8px; }
         .custom-select {
             width: 100%;
             padding: 14px 40px 14px 16px;
             border: 2px solid var(--gray-200);
             border-radius: var(--radius);
             font-size: 0.938rem;
-            font-family: inherit;
             color: var(--gray-700);
             background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
             background-size: 20px;
@@ -435,359 +202,87 @@
             cursor: pointer;
             transition: var(--transition);
         }
+        .custom-select:focus { outline: none; border-color: var(--primary); }
 
-        .custom-select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* 생년월일/성별 */
-        .birth-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .birth-inputs {
-            display: flex;
-            gap: 8px;
-        }
-
+        .birth-wrap { display: flex; flex-direction: column; gap: 16px; }
+        .birth-section { display: flex; flex-direction: column; gap: 8px; }
+        .birth-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); }
+        .birth-row { display: flex; gap: 8px; align-items: center; }
+        .birth-input-wrap { flex: 1; }
+        .birth-input-wrap.year { flex: 1.5; }
         .birth-input {
-            flex: 1;
-            padding: 14px;
+            width: 100%;
+            padding: 14px 12px;
             border: 2px solid var(--gray-200);
             border-radius: var(--radius);
-            font-size: 0.938rem;
-            font-family: inherit;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .birth-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .birth-input::placeholder {
-            color: var(--gray-400);
-        }
-
-        .gender-btns {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        /* ===== 결과 모달 ===== */
-        .result-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .result-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-        }
-
-        .modal-content {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            max-height: 85vh;
-            background: var(--white);
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .result-modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .modal-header h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gray-900);
-        }
-
-        .close-btn {
-            width: 36px;
-            height: 36px;
-            background: var(--gray-100);
-            border: none;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .close-btn:hover {
-            background: var(--gray-200);
-        }
-
-        .close-btn svg {
-            width: 20px;
-            height: 20px;
-            color: var(--gray-600);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        /* 결과 통계 */
-        .result-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: var(--gray-50);
-            border-radius: var(--radius);
-            padding: 16px;
-            text-align: center;
-        }
-
-        .stat-card.highlight {
-            background: var(--primary-50);
-        }
-
-        .stat-number {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 0.813rem;
-            color: var(--gray-600);
-        }
-
-        /* 결과 카드 */
-        .result-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .result-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 16px;
-            transition: var(--transition);
-        }
-
-        .result-card:hover {
-            border-color: var(--primary-100);
-            box-shadow: var(--shadow-md);
-        }
-
-        .result-card-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .result-badge {
-            background: var(--primary);
-            color: var(--white);
-            font-size: 0.688rem;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: var(--radius-sm);
-            white-space: nowrap;
-        }
-
-        .result-title {
             font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            line-height: 1.4;
-        }
-
-        .result-org {
-            font-size: 0.813rem;
-            color: var(--gray-500);
-            margin-bottom: 8px;
-        }
-
-        .result-desc {
-            font-size: 0.875rem;
-            color: var(--gray-600);
-            line-height: 1.5;
-            margin-bottom: 12px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .result-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .result-link:hover {
-            text-decoration: underline;
-        }
-
-        .result-link svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* 결과 없음 */
-        .no-result {
             text-align: center;
-            padding: 48px 20px;
+            transition: var(--transition);
+            -moz-appearance: textfield;
         }
+        .birth-input::-webkit-outer-spin-button, .birth-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .birth-input:focus { outline: none; border-color: var(--primary); }
+        .birth-input::placeholder { color: var(--gray-400); font-size: 0.875rem; }
+        .birth-suffix { font-size: 0.875rem; color: var(--gray-500); flex-shrink: 0; width: 20px; }
+        .gender-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
-        .no-result-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
+        .result-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .result-modal.active { opacity: 1; visibility: visible; }
+        .modal-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+        .modal-content { position: relative; width: 100%; max-width: 500px; max-height: 85vh; background: var(--white); border-radius: var(--radius-xl) var(--radius-xl) 0 0; transform: translateY(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
+        .result-modal.active .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--gray-100); }
+        .modal-header h3 { font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
+        .close-btn { width: 36px; height: 36px; background: var(--gray-100); border: none; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .close-btn:hover { background: var(--gray-200); }
+        .close-btn svg { width: 20px; height: 20px; color: var(--gray-600); }
+        .modal-body { flex: 1; overflow-y: auto; padding: 20px; }
 
-        .no-result-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--gray-800);
-            margin-bottom: 8px;
-        }
+        .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--gray-50); border-radius: var(--radius); padding: 16px; text-align: center; }
+        .stat-card.highlight { background: var(--primary-50); }
+        .stat-number { font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .stat-label { font-size: 0.813rem; color: var(--gray-600); }
 
-        .no-result-desc {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-            line-height: 1.5;
-        }
+        .result-list { display: flex; flex-direction: column; gap: 12px; }
+        .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px; transition: var(--transition); }
+        .result-card:hover { border-color: var(--primary-100); box-shadow: var(--shadow-md); }
+        .result-card-header { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+        .result-badge { background: var(--primary); color: var(--white); font-size: 0.688rem; font-weight: 600; padding: 4px 8px; border-radius: var(--radius-sm); white-space: nowrap; }
+        .result-title { font-size: 1rem; font-weight: 600; color: var(--gray-900); line-height: 1.4; flex: 1; min-width: 200px; }
+        .result-org { font-size: 0.813rem; color: var(--gray-500); margin-bottom: 8px; }
+        .result-desc { font-size: 0.875rem; color: var(--gray-600); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .result-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.875rem; font-weight: 600; color: var(--primary); text-decoration: none; }
+        .result-link:hover { text-decoration: underline; }
+        .result-link svg { width: 16px; height: 16px; }
 
-        /* 로딩 */
-        .loading-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 48px 20px;
-        }
+        .no-result { text-align: center; padding: 48px 20px; }
+        .no-result-icon { font-size: 3rem; margin-bottom: 16px; }
+        .no-result-title { font-size: 1.125rem; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
+        .no-result-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.5; }
 
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid var(--gray-200);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 16px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 0.938rem;
-            color: var(--gray-600);
-        }
-
-        /* ===== 반응형 ===== */
         @media (max-width: 520px) {
-            .chatbot-wrapper {
-                padding: 0;
-            }
-
-            .chatbot-container {
-                max-width: 100%;
-                border-radius: 0;
-                max-height: 100vh;
-                max-height: 100dvh;
-            }
-
-            .chatbot-header {
-                padding: 16px;
-                padding-top: max(16px, env(safe-area-inset-top));
-            }
-
-            .header-title {
-                font-size: 1.125rem;
-            }
-
-            .messages-area {
-                padding: 16px;
-            }
-
-            .input-area {
-                padding: 12px 16px 16px;
-                padding-bottom: max(16px, env(safe-area-inset-bottom));
-            }
-
-            .message {
-                max-width: 95%;
-            }
-
-            .modal-content {
-                max-width: 100%;
-                max-height: 90vh;
-            }
+            .chatbot-wrapper { padding: 0; }
+            .chatbot-container { max-width: 100%; border-radius: 0; max-height: 100vh; max-height: 100dvh; }
+            .chatbot-header { padding: 16px; padding-top: max(16px, env(safe-area-inset-top)); }
+            .header-title { font-size: 1.125rem; }
+            .messages-area { padding: 16px; }
+            .input-area { padding: 12px 16px 16px; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+            .message { max-width: 95%; }
+            .modal-content { max-width: 100%; max-height: 90vh; }
+            .options-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (min-width: 521px) {
-            .chatbot-wrapper {
-                align-items: center;
-                padding: 24px;
-            }
-
-            .result-modal {
-                align-items: center;
-            }
-
-            .modal-content {
-                border-radius: var(--radius-xl);
-                max-height: 80vh;
-            }
+            .chatbot-wrapper { align-items: center; padding: 24px; }
+            .result-modal { align-items: center; }
+            .modal-content { border-radius: var(--radius-xl); max-height: 80vh; }
         }
     </style>
 </head>
 <body>
     <div class="chatbot-wrapper">
         <div class="chatbot-container">
-            <!-- 헤더 -->
             <header class="chatbot-header">
                 <div class="header-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -806,23 +301,16 @@
                 </button>
             </header>
 
-            <!-- 진행바 -->
             <div class="progress-wrap">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
                 <span class="progress-text" id="progressText">시작하기</span>
             </div>
 
-            <!-- 메시지 영역 -->
             <main class="messages-area" id="messagesArea"></main>
-
-            <!-- 입력 영역 -->
             <div class="input-area" id="inputArea"></div>
         </div>
     </div>
 
-    <!-- 결과 모달 -->
     <div class="result-modal" id="resultModal">
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
@@ -842,26 +330,15 @@
     (function() {
         'use strict';
 
-        // ===== 설정 =====
         const CONFIG = {
-            // Cloudflare Workers 프록시 URL
             API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
-            
-            // 데모 모드 (false = 실제 API 사용)
             DEMO_MODE: false
         };
 
-        // ===== 챗봇 클래스 =====
         const Chatbot = {
-            state: {
-                step: 0,
-                answers: {},
-                isProcessing: false
-            },
-
+            state: { step: 0, answers: {}, isProcessing: false },
             elements: {},
 
-            // 질문 데이터
             questions: [
                 {
                     id: 'intro',
@@ -871,10 +348,8 @@
                         { value: 'personal', label: '👤 개인/가구' },
                         { value: 'business', label: '🏪 소상공인' },
                         { value: 'corp', label: '🏢 법인/기관' }
-                    ],
-                    gridClass: ''
+                    ]
                 },
-                // 개인 질문
                 {
                     id: 'region',
                     type: 'region',
@@ -893,15 +368,15 @@
                     id: 'income',
                     type: 'single',
                     condition: { intro: 'personal' },
-                    message: '가구의 소득 수준을 선택해주세요.\n\n💡 기준중위소득 100%는 4인 가구 기준 약 572만원입니다.',
+                    message: '가구의 소득 수준을 선택해주세요.\n\n💡 2025년 기준중위소득 (4인가구 기준: 월 572만원)',
                     options: [
-                        { value: '0~50', label: '50% 이하' },
-                        { value: '51~75', label: '51~75%' },
-                        { value: '76~100', label: '76~100%' },
-                        { value: '101~200', label: '101~200%' },
-                        { value: '200~', label: '200% 초과' }
+                        { value: '0~50', label: '50% 이하', sub: '월 286만원 이하' },
+                        { value: '51~75', label: '51~75%', sub: '월 286~429만원' },
+                        { value: '76~100', label: '76~100%', sub: '월 429~572만원' },
+                        { value: '101~200', label: '101~200%', sub: '월 572~1,145만원' },
+                        { value: '200~', label: '200% 초과', sub: '월 1,145만원 초과' }
                     ],
-                    gridClass: 'cols-3',
+                    gridClass: 'cols-2',
                     progressText: '3/5 단계'
                 },
                 {
@@ -943,7 +418,6 @@
                     gridClass: 'cols-2',
                     progressText: '5/5 단계'
                 },
-                // 소상공인 질문
                 {
                     id: 'bizStatus',
                     type: 'single',
@@ -978,7 +452,6 @@
                     gridClass: 'cols-2',
                     progressText: '3/3 단계'
                 },
-                // 법인 질문
                 {
                     id: 'corpType',
                     type: 'single',
@@ -1014,7 +487,6 @@
                 }
             ],
 
-            // 지역 데이터
             regions: {
                 '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
                 '부산': ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
@@ -1035,7 +507,6 @@
                 '제주': ['서귀포시', '제주시']
             },
 
-            // 초기화
             init() {
                 this.cacheElements();
                 this.bindEvents();
@@ -1062,9 +533,7 @@
                 this.elements.modalOverlay.addEventListener('click', () => this.closeModal());
             },
 
-            startChat() {
-                this.showQuestion(0);
-            },
+            startChat() { this.showQuestion(0); },
 
             reset() {
                 this.state = { step: 0, answers: {}, isProcessing: false };
@@ -1074,39 +543,24 @@
             },
 
             getNextQuestion(currentIndex) {
-                const userType = this.state.answers.intro;
-                
                 for (let i = currentIndex + 1; i < this.questions.length; i++) {
                     const q = this.questions[i];
                     if (!q.condition) return i;
-                    
-                    const conditionMet = Object.entries(q.condition).every(
-                        ([key, value]) => this.state.answers[key] === value
-                    );
-                    
+                    const conditionMet = Object.entries(q.condition).every(([key, value]) => this.state.answers[key] === value);
                     if (conditionMet) return i;
                 }
-                
                 return -1;
             },
 
             showQuestion(index) {
                 const question = this.questions[index];
-                if (!question) {
-                    this.submitAnswers();
-                    return;
-                }
-
+                if (!question) { this.submitAnswers(); return; }
                 this.state.step = index;
-                
                 if (question.progressText) {
                     const [current, total] = question.progressText.match(/\d+/g);
-                    const percent = (parseInt(current) / parseInt(total)) * 100;
-                    this.updateProgress(percent, question.progressText);
+                    this.updateProgress((parseInt(current) / parseInt(total)) * 100, question.progressText);
                 }
-
                 this.showTyping();
-                
                 setTimeout(() => {
                     this.hideTyping();
                     this.addBotMessage(question.message);
@@ -1122,16 +576,7 @@
             showTyping() {
                 const typing = document.createElement('div');
                 typing.className = 'message bot typing-msg';
-                typing.innerHTML = `
-                    <div class="message-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                        </svg>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="typing-dots"><span></span><span></span><span></span></div>
-                    </div>
-                `;
+                typing.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
                 this.elements.messages.appendChild(typing);
                 this.scrollToBottom();
             },
@@ -1144,14 +589,7 @@
             addBotMessage(text) {
                 const msg = document.createElement('div');
                 msg.className = 'message bot';
-                msg.innerHTML = `
-                    <div class="message-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                        </svg>
-                    </div>
-                    <div class="message-bubble">${text.replace(/\n/g, '<br>')}</div>
-                `;
+                msg.innerHTML = `<div class="message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="message-bubble">${text.replace(/\n/g, '<br>')}</div>`;
                 this.elements.messages.appendChild(msg);
                 this.scrollToBottom();
             },
@@ -1164,37 +602,25 @@
                 this.scrollToBottom();
             },
 
-            scrollToBottom() {
-                this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
-            },
+            scrollToBottom() { this.elements.messages.scrollTop = this.elements.messages.scrollHeight; },
 
             showInputOptions(question) {
                 this.elements.inputArea.innerHTML = '';
-
                 switch (question.type) {
-                    case 'single':
-                        this.renderSingleSelect(question);
-                        break;
-                    case 'multi':
-                        this.renderMultiSelect(question);
-                        break;
-                    case 'region':
-                        this.renderRegionSelect(question);
-                        break;
-                    case 'birthGender':
-                        this.renderBirthGender(question);
-                        break;
+                    case 'single': this.renderSingleSelect(question); break;
+                    case 'multi': this.renderMultiSelect(question); break;
+                    case 'region': this.renderRegionSelect(question); break;
+                    case 'birthGender': this.renderBirthGender(question); break;
                 }
             },
 
             renderSingleSelect(question) {
                 const container = document.createElement('div');
                 container.className = `options-grid ${question.gridClass || ''}`;
-
                 question.options.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
-                    btn.textContent = opt.label;
+                    btn.innerHTML = opt.sub ? `${opt.label}<span class="sub-text">${opt.sub}</span>` : opt.label;
                     btn.addEventListener('click', () => {
                         this.addUserMessage(opt.label);
                         this.state.answers[question.id] = opt.value;
@@ -1202,7 +628,6 @@
                     });
                     container.appendChild(btn);
                 });
-
                 this.elements.inputArea.appendChild(container);
             },
 
@@ -1210,13 +635,11 @@
                 const container = document.createElement('div');
                 container.className = `options-grid ${question.gridClass || ''}`;
                 const selected = new Set();
-
                 question.options.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn multi';
                     btn.textContent = opt.label;
                     btn.dataset.value = opt.value;
-
                     btn.addEventListener('click', () => {
                         if (opt.value === 'JA9999') {
                             selected.clear();
@@ -1225,40 +648,24 @@
                             selected.add(opt.value);
                         } else {
                             const noneBtn = container.querySelector('[data-value="JA9999"]');
-                            if (noneBtn) {
-                                noneBtn.classList.remove('selected');
-                                selected.delete('JA9999');
-                            }
-
-                            if (selected.has(opt.value)) {
-                                selected.delete(opt.value);
-                                btn.classList.remove('selected');
-                            } else {
-                                selected.add(opt.value);
-                                btn.classList.add('selected');
-                            }
+                            if (noneBtn) { noneBtn.classList.remove('selected'); selected.delete('JA9999'); }
+                            if (selected.has(opt.value)) { selected.delete(opt.value); btn.classList.remove('selected'); }
+                            else { selected.add(opt.value); btn.classList.add('selected'); }
                         }
-
                         confirmBtn.disabled = selected.size === 0;
                     });
-
                     container.appendChild(btn);
                 });
-
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'confirm-btn';
                 confirmBtn.textContent = '선택 완료';
                 confirmBtn.disabled = true;
                 confirmBtn.addEventListener('click', () => {
-                    const labels = Array.from(selected).map(v => {
-                        const opt = question.options.find(o => o.value === v);
-                        return opt ? opt.label : v;
-                    });
+                    const labels = Array.from(selected).map(v => { const opt = question.options.find(o => o.value === v); return opt ? opt.label : v; });
                     this.addUserMessage(labels.join(', '));
                     this.state.answers[question.id] = Array.from(selected);
                     this.proceedToNext();
                 });
-
                 this.elements.inputArea.appendChild(container);
                 this.elements.inputArea.appendChild(confirmBtn);
             },
@@ -1266,52 +673,33 @@
             renderRegionSelect(question) {
                 const container = document.createElement('div');
                 container.className = 'select-wrap';
-
                 const sidoSelect = document.createElement('select');
                 sidoSelect.className = 'custom-select';
                 sidoSelect.innerHTML = '<option value="">시/도 선택</option>';
-                Object.keys(this.regions).forEach(sido => {
-                    sidoSelect.innerHTML += `<option value="${sido}">${sido}</option>`;
-                });
-
+                Object.keys(this.regions).forEach(sido => { sidoSelect.innerHTML += `<option value="${sido}">${sido}</option>`; });
                 const gugunSelect = document.createElement('select');
                 gugunSelect.className = 'custom-select';
                 gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
                 gugunSelect.disabled = true;
-
                 sidoSelect.addEventListener('change', () => {
                     const sido = sidoSelect.value;
                     gugunSelect.innerHTML = '<option value="">시/군/구 선택</option>';
-                    
                     if (sido && this.regions[sido]) {
                         gugunSelect.disabled = false;
-                        this.regions[sido].forEach(gugun => {
-                            gugunSelect.innerHTML += `<option value="${gugun}">${gugun}</option>`;
-                        });
-                    } else {
-                        gugunSelect.disabled = true;
-                    }
+                        this.regions[sido].forEach(gugun => { gugunSelect.innerHTML += `<option value="${gugun}">${gugun}</option>`; });
+                    } else { gugunSelect.disabled = true; }
                     confirmBtn.disabled = true;
                 });
-
-                gugunSelect.addEventListener('change', () => {
-                    confirmBtn.disabled = !gugunSelect.value;
-                });
-
+                gugunSelect.addEventListener('change', () => { confirmBtn.disabled = !gugunSelect.value; });
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'confirm-btn';
                 confirmBtn.textContent = '선택 완료';
                 confirmBtn.disabled = true;
                 confirmBtn.addEventListener('click', () => {
-                    const region = `${sidoSelect.value} ${gugunSelect.value}`;
-                    this.addUserMessage(region);
-                    this.state.answers[question.id] = {
-                        sido: sidoSelect.value,
-                        gugun: gugunSelect.value
-                    };
+                    this.addUserMessage(`${sidoSelect.value} ${gugunSelect.value}`);
+                    this.state.answers[question.id] = { sido: sidoSelect.value, gugun: gugunSelect.value };
                     this.proceedToNext();
                 });
-
                 container.appendChild(sidoSelect);
                 container.appendChild(gugunSelect);
                 this.elements.inputArea.appendChild(container);
@@ -1322,38 +710,75 @@
                 const container = document.createElement('div');
                 container.className = 'birth-wrap';
 
-                const birthInputs = document.createElement('div');
-                birthInputs.className = 'birth-inputs';
+                // 생년월일
+                const birthSection = document.createElement('div');
+                birthSection.className = 'birth-section';
+                const birthLabel = document.createElement('div');
+                birthLabel.className = 'birth-label';
+                birthLabel.textContent = '생년월일';
+                birthSection.appendChild(birthLabel);
 
+                const birthRow = document.createElement('div');
+                birthRow.className = 'birth-row';
+
+                const yearWrap = document.createElement('div');
+                yearWrap.className = 'birth-input-wrap year';
                 const yearInput = document.createElement('input');
-                yearInput.type = 'text';
+                yearInput.type = 'number';
                 yearInput.className = 'birth-input';
-                yearInput.placeholder = '년도';
-                yearInput.maxLength = 4;
-                yearInput.inputMode = 'numeric';
+                yearInput.placeholder = '1990';
+                yearInput.min = '1900';
+                yearInput.max = '2025';
+                yearWrap.appendChild(yearInput);
+                const yearSuffix = document.createElement('span');
+                yearSuffix.className = 'birth-suffix';
+                yearSuffix.textContent = '년';
 
+                const monthWrap = document.createElement('div');
+                monthWrap.className = 'birth-input-wrap';
                 const monthInput = document.createElement('input');
-                monthInput.type = 'text';
+                monthInput.type = 'number';
                 monthInput.className = 'birth-input';
-                monthInput.placeholder = '월';
-                monthInput.maxLength = 2;
-                monthInput.inputMode = 'numeric';
+                monthInput.placeholder = '1';
+                monthInput.min = '1';
+                monthInput.max = '12';
+                monthWrap.appendChild(monthInput);
+                const monthSuffix = document.createElement('span');
+                monthSuffix.className = 'birth-suffix';
+                monthSuffix.textContent = '월';
 
+                const dayWrap = document.createElement('div');
+                dayWrap.className = 'birth-input-wrap';
                 const dayInput = document.createElement('input');
-                dayInput.type = 'text';
+                dayInput.type = 'number';
                 dayInput.className = 'birth-input';
-                dayInput.placeholder = '일';
-                dayInput.maxLength = 2;
-                dayInput.inputMode = 'numeric';
+                dayInput.placeholder = '1';
+                dayInput.min = '1';
+                dayInput.max = '31';
+                dayWrap.appendChild(dayInput);
+                const daySuffix = document.createElement('span');
+                daySuffix.className = 'birth-suffix';
+                daySuffix.textContent = '일';
 
-                birthInputs.appendChild(yearInput);
-                birthInputs.appendChild(monthInput);
-                birthInputs.appendChild(dayInput);
+                birthRow.appendChild(yearWrap);
+                birthRow.appendChild(yearSuffix);
+                birthRow.appendChild(monthWrap);
+                birthRow.appendChild(monthSuffix);
+                birthRow.appendChild(dayWrap);
+                birthRow.appendChild(daySuffix);
+                birthSection.appendChild(birthRow);
+
+                // 성별
+                const genderSection = document.createElement('div');
+                genderSection.className = 'birth-section';
+                const genderLabel = document.createElement('div');
+                genderLabel.className = 'birth-label';
+                genderLabel.textContent = '성별';
+                genderSection.appendChild(genderLabel);
 
                 const genderBtns = document.createElement('div');
                 genderBtns.className = 'gender-btns';
                 let selectedGender = '';
-
                 ['남성', '여성'].forEach(gender => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
@@ -1366,6 +791,7 @@
                     });
                     genderBtns.appendChild(btn);
                 });
+                genderSection.appendChild(genderBtns);
 
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'confirm-btn';
@@ -1376,28 +802,25 @@
                     const year = yearInput.value;
                     const month = monthInput.value;
                     const day = dayInput.value;
-                    confirmBtn.disabled = !(year.length === 4 && month && day && selectedGender);
+                    const validYear = year && year.length === 4 && parseInt(year) >= 1900 && parseInt(year) <= 2025;
+                    const validMonth = month && parseInt(month) >= 1 && parseInt(month) <= 12;
+                    const validDay = day && parseInt(day) >= 1 && parseInt(day) <= 31;
+                    confirmBtn.disabled = !(validYear && validMonth && validDay && selectedGender);
                 };
 
-                [yearInput, monthInput, dayInput].forEach(input => {
-                    input.addEventListener('input', updateConfirmBtn);
-                });
+                [yearInput, monthInput, dayInput].forEach(input => { input.addEventListener('input', updateConfirmBtn); });
 
                 confirmBtn.addEventListener('click', () => {
                     const year = yearInput.value;
                     const month = monthInput.value.padStart(2, '0');
                     const day = dayInput.value.padStart(2, '0');
-                    
-                    this.addUserMessage(`${year}.${month}.${day}, ${selectedGender}`);
-                    this.state.answers[question.id] = {
-                        year, month, day,
-                        gender: selectedGender === '남성' ? 'M' : 'F'
-                    };
+                    this.addUserMessage(`${year}년 ${month}월 ${day}일, ${selectedGender}`);
+                    this.state.answers[question.id] = { year, month, day, gender: selectedGender === '남성' ? 'M' : 'F' };
                     this.proceedToNext();
                 });
 
-                container.appendChild(birthInputs);
-                container.appendChild(genderBtns);
+                container.appendChild(birthSection);
+                container.appendChild(genderSection);
                 this.elements.inputArea.appendChild(container);
                 this.elements.inputArea.appendChild(confirmBtn);
             },
@@ -1405,27 +828,19 @@
             proceedToNext() {
                 this.elements.inputArea.innerHTML = '';
                 const nextIndex = this.getNextQuestion(this.state.step);
-                
-                if (nextIndex === -1) {
-                    this.submitAnswers();
-                } else {
-                    setTimeout(() => this.showQuestion(nextIndex), 300);
-                }
+                if (nextIndex === -1) this.submitAnswers();
+                else setTimeout(() => this.showQuestion(nextIndex), 300);
             },
 
             async submitAnswers() {
                 this.updateProgress(100, '검색 중...');
                 this.showTyping();
-
                 try {
                     let result;
-                    
                     if (CONFIG.DEMO_MODE || !CONFIG.API_PROXY_URL) {
-                        // 데모 모드: 더미 데이터
                         await new Promise(resolve => setTimeout(resolve, 1500));
                         result = this.getDemoResults();
                     } else {
-                        // 실제 API 호출
                         const response = await fetch(CONFIG.API_PROXY_URL, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -1433,7 +848,6 @@
                         });
                         result = await response.json();
                     }
-
                     this.hideTyping();
                     this.showResults(result);
                 } catch (error) {
@@ -1444,133 +858,40 @@
             },
 
             getDemoResults() {
-                return {
-                    services: [
-                        {
-                            servId: 'WLF00001',
-                            servNm: '청년 주거급여 분리지급',
-                            servDgst: '부모와 떨어져 거주하는 청년에게 주거급여를 별도로 지급하는 제도입니다.',
-                            jurMnofNm: '국토교통부',
-                            jurOrgNm: '주거복지정책과',
-                            category: '주거'
-                        },
-                        {
-                            servId: 'WLF00002',
-                            servNm: '청년 월세 한시 특별지원',
-                            servDgst: '경제적으로 어려운 청년층의 주거비 부담 경감을 위한 월세 지원 사업입니다.',
-                            jurMnofNm: '국토교통부',
-                            jurOrgNm: '주거복지정책과',
-                            category: '주거'
-                        },
-                        {
-                            servId: 'WLF00003',
-                            servNm: '국민취업지원제도',
-                            servDgst: '취업을 원하는 사람에게 취업지원서비스를 종합적으로 제공하고 저소득 구직자에게는 생계를 위한 최소한의 소득도 지원합니다.',
-                            jurMnofNm: '고용노동부',
-                            jurOrgNm: '고용정책실',
-                            category: '취업'
-                        },
-                        {
-                            servId: 'WLF00004',
-                            servNm: '청년내일저축계좌',
-                            servDgst: '일하는 저소득 청년의 자산형성을 지원하는 사업입니다.',
-                            jurMnofNm: '보건복지부',
-                            jurOrgNm: '자립지원과',
-                            category: '금융'
-                        },
-                        {
-                            servId: 'WLF00005',
-                            servNm: '청년도약계좌',
-                            servDgst: '청년의 중장기 자산형성을 지원하기 위한 정책형 금융상품입니다.',
-                            jurMnofNm: '금융위원회',
-                            jurOrgNm: '서민금융과',
-                            category: '금융'
-                        }
-                    ],
-                    totalCount: 5
-                };
+                return { services: [{ 서비스명: '청년 주거급여 분리지급', 서비스요약: '부모와 떨어져 거주하는 청년에게 주거급여를 별도로 지급', 소관기관명: '국토교통부', 서비스분야: '주거', 서비스ID: 'WLF00001' }], totalCount: 1 };
             },
 
             showResults(data) {
                 const { services, totalCount } = data;
-                
-                this.addBotMessage(`🎉 검색이 완료되었어요!\n\n총 <strong>${totalCount}개</strong>의 맞춤 지원금을 찾았습니다.`);
-                
-                setTimeout(() => {
-                    this.renderResultModal(services, totalCount);
-                }, 500);
+                this.addBotMessage(`🎉 검색이 완료되었어요!\n\n총 <strong>${totalCount.toLocaleString()}개</strong>의 맞춤 지원금을 찾았습니다.`);
+                setTimeout(() => this.renderResultModal(services, totalCount), 500);
             },
 
             renderResultModal(services, totalCount) {
                 let html = '';
-
                 if (totalCount === 0) {
-                    html = `
-                        <div class="no-result">
-                            <div class="no-result-icon">🔍</div>
-                            <div class="no-result-title">검색 결과가 없습니다</div>
-                            <div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.<br>조건을 변경하여 다시 검색해보세요.</div>
-                        </div>
-                    `;
+                    html = `<div class="no-result"><div class="no-result-icon">🔍</div><div class="no-result-title">검색 결과가 없습니다</div><div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.<br>조건을 변경하여 다시 검색해보세요.</div></div>`;
                 } else {
-                    html = `
-                        <div class="result-stats">
-                            <div class="stat-card highlight">
-                                <div class="stat-number">${totalCount}</div>
-                                <div class="stat-label">검색된 지원금</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number">${services.length}</div>
-                                <div class="stat-label">표시된 항목</div>
-                            </div>
-                        </div>
-                        <div class="result-list">
-                            ${services.map(s => `
-                                <div class="result-card">
-                                    <div class="result-card-header">
-                                        <span class="result-badge">${s.category || '지원금'}</span>
-                                        <h4 class="result-title">${s.servNm || '지원금명 없음'}</h4>
-                                    </div>
-                                    <p class="result-org">${s.jurMnofNm || ''} ${s.jurOrgNm || ''}</p>
-                                    <p class="result-desc">${s.servDgst || ''}</p>
-                                    <a href="https://www.gov.kr/portal/rcvfvrSvc/dtlEx/${s.servId}" 
-                                       target="_blank" 
-                                       rel="noopener"
-                                       class="result-link">
-                                        자세히 보기
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
+                    html = `<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">${totalCount.toLocaleString()}</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">${services.length}</div><div class="stat-label">표시된 항목</div></div></div><div class="result-list">${services.map(s => {
+                        const name = s.서비스명 || s.servNm || '지원금명 없음';
+                        const desc = s.서비스요약 || s.servDgst || '';
+                        const org = s.소관기관명 || s.jurMnofNm || '';
+                        const dept = s.부서명 || s.jurOrgNm || '';
+                        const category = s.서비스분야 || s.svcfldNm || '지원금';
+                        const id = s.서비스ID || s.servId || '';
+                        return `<div class="result-card"><div class="result-card-header"><span class="result-badge">${category}</span><h4 class="result-title">${name}</h4></div><p class="result-org">${org} ${dept}</p><p class="result-desc">${desc}</p><a href="https://www.gov.kr/portal/rcvfvrSvc/dtlEx/${id}" target="_blank" rel="noopener" class="result-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>`;
+                    }).join('')}</div>`;
                 }
-
                 this.elements.modalBody.innerHTML = html;
                 this.openModal();
             },
 
-            openModal() {
-                this.elements.resultModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            },
-
-            closeModal() {
-                this.elements.resultModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            openModal() { this.elements.resultModal.classList.add('active'); document.body.style.overflow = 'hidden'; },
+            closeModal() { this.elements.resultModal.classList.remove('active'); document.body.style.overflow = ''; }
         };
 
-        // 초기화
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => Chatbot.init());
-        } else {
-            Chatbot.init();
-        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => Chatbot.init());
+        else Chatbot.init();
     })();
     </script>
 </body>
