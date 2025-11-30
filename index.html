@@ -77,9 +77,16 @@
         .option-btn.multi.selected::before { background: var(--primary); border-color: var(--primary); }
         .option-btn.multi.selected::after { content: ''; position: absolute; left: 19px; top: 50%; transform: translateY(-60%) rotate(45deg); width: 5px; height: 10px; border: solid var(--white); border-width: 0 2px 2px 0; }
 
-        .confirm-btn { width: 100%; background: var(--gradient-primary); border: none; border-radius: var(--radius); padding: 14px; font-size: 1rem; font-weight: 600; color: var(--white); margin-top: 8px; transition: var(--transition); }
+        .btn-group { display: flex; gap: 8px; margin-top: 8px; }
+        .back-btn { flex: 0 0 auto; min-width: 80px; background: var(--white); border: 2px solid var(--gray-300); border-radius: var(--radius); padding: 14px 16px; font-size: 1rem; font-weight: 600; color: var(--gray-600); display: flex; align-items: center; justify-content: center; gap: 4px; transition: var(--transition); }
+        .back-btn:hover { border-color: var(--gray-400); background: var(--gray-50); }
+        .back-btn svg { width: 18px; height: 18px; }
+        .back-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .confirm-btn { flex: 1; background: var(--gradient-primary); border: none; border-radius: var(--radius); padding: 14px; font-size: 1rem; font-weight: 600; color: var(--white); transition: var(--transition); }
         .confirm-btn:hover { opacity: 0.9; }
         .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .confirm-btn.full { width: 100%; margin-top: 8px; }
 
         .select-wrap { display: flex; flex-direction: column; gap: 8px; }
         .custom-select { width: 100%; padding: 14px 40px 14px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 0.938rem; color: var(--gray-700); background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center; background-size: 20px; appearance: none; }
@@ -98,23 +105,32 @@
         .birth-suffix { font-size: 0.875rem; color: var(--gray-500); width: 20px; }
         .gender-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
+        /* 결과 모달 */
         .result-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); }
         .result-modal.active { opacity: 1; visibility: visible; }
         .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
         .modal-content { position: relative; width: 100%; max-width: 500px; max-height: 85vh; background: var(--white); border-radius: var(--radius-xl) var(--radius-xl) 0 0; transform: translateY(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
         .result-modal.active .modal-content { transform: translateY(0); }
-        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--gray-100); }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--gray-100); flex-shrink: 0; }
         .modal-header h3 { font-size: 1.25rem; font-weight: 700; }
         .close-btn { width: 36px; height: 36px; background: var(--gray-100); border: none; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
         .close-btn:hover { background: var(--gray-200); }
         .close-btn svg { width: 20px; height: 20px; color: var(--gray-600); }
         .modal-body { flex: 1; overflow-y: auto; padding: 20px; }
 
-        .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
         .stat-card { background: var(--gray-50); border-radius: var(--radius); padding: 16px; text-align: center; }
         .stat-card.highlight { background: var(--primary-50); }
         .stat-number { font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
         .stat-label { font-size: 0.813rem; color: var(--gray-600); }
+
+        /* 상단 네비게이션 (이전/다음 페이지) */
+        .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 12px 16px; background: var(--gray-50); border-radius: var(--radius); }
+        .top-nav-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); transition: var(--transition); }
+        .top-nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .top-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .top-nav-btn svg { width: 16px; height: 16px; }
+        .top-nav-info { font-size: 0.875rem; font-weight: 600; color: var(--gray-600); }
 
         .result-list { display: flex; flex-direction: column; gap: 12px; }
         .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px; position: relative; }
@@ -134,24 +150,22 @@
         .no-result-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
         .no-result-desc { font-size: 0.875rem; color: var(--gray-500); }
 
-        .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
-        .page-btn { width: 40px; height: 40px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); color: var(--gray-600); font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-        .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        /* 하단 페이지 번호 */
+        .pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+        .page-btn { min-width: 36px; height: 36px; padding: 0 8px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); color: var(--gray-600); font-size: 0.813rem; font-weight: 600; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .page-btn:hover:not(:disabled):not(.active) { border-color: var(--primary); color: var(--primary); }
         .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
-        .page-btn svg { width: 18px; height: 18px; }
-        .page-numbers { display: flex; gap: 4px; }
-
-        .error-msg { background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
-        .error-msg-title { font-weight: 600; color: #DC2626; margin-bottom: 4px; }
-        .error-msg-text { font-size: 0.875rem; color: #991B1B; }
+        .page-btn.ellipsis { border: none; background: none; cursor: default; }
+        .page-btn.ellipsis:hover { color: var(--gray-600); }
 
         @media (max-width: 520px) {
             .chatbot-wrapper { padding: 0; }
             .chatbot-container { max-width: 100%; border-radius: 0; max-height: 100dvh; }
             .chatbot-header { padding: 16px; padding-top: max(16px, env(safe-area-inset-top)); }
             .modal-content { max-width: 100%; max-height: 90vh; }
-            .page-btn { width: 36px; height: 36px; }
+            .page-btn { min-width: 32px; height: 32px; font-size: 0.75rem; }
+            .top-nav-btn { padding: 6px 12px; font-size: 0.813rem; }
         }
         @media (min-width: 521px) {
             .chatbot-wrapper { align-items: center; padding: 24px; }
@@ -196,12 +210,19 @@
         
         const CONFIG = {
             API_PROXY_URL: 'https://subsidy-api-proxy.peopleidentityc.workers.dev',
-            DEMO_MODE: false,
-            ITEMS_PER_PAGE: 20
+            ITEMS_PER_PAGE: 20,
+            MAX_ITEMS: 1000
         };
 
         const Chatbot = {
-            state: { step: 0, answers: {}, currentPage: 1, allServices: [], totalCount: 0 },
+            state: { 
+                step: 0, 
+                answers: {}, 
+                history: [], // 이전 단계 기록
+                currentPage: 1, 
+                allServices: [], 
+                totalCount: 0 
+            },
             elements: {},
 
             questions: [
@@ -256,7 +277,7 @@
             },
 
             reset() {
-                this.state = { step: 0, answers: {}, currentPage: 1, allServices: [], totalCount: 0 };
+                this.state = { step: 0, answers: {}, history: [], currentPage: 1, allServices: [], totalCount: 0 };
                 this.elements.messages.innerHTML = '';
                 this.elements.progressFill.style.width = '0%';
                 this.elements.progressText.textContent = '시작하기';
@@ -272,15 +293,58 @@
                 return -1;
             },
 
-            showQuestion(idx) {
+            getPrevQuestion(idx) {
+                for (let i = idx - 1; i >= 0; i--) {
+                    const q = this.questions[i];
+                    if (!q.condition) return i;
+                    if (Object.entries(q.condition).every(([k, v]) => this.state.answers[k] === v)) return i;
+                }
+                return -1;
+            },
+
+            goBack() {
+                if (this.state.history.length === 0) return;
+                
+                // 마지막 히스토리 복원
+                const lastState = this.state.history.pop();
+                
+                // 현재 질문의 답변 삭제
+                const currentQ = this.questions[this.state.step];
+                if (currentQ) delete this.state.answers[currentQ.id];
+                
+                // 마지막 사용자 메시지와 봇 메시지 삭제
+                const messages = this.elements.messages.querySelectorAll('.message');
+                let removed = 0;
+                for (let i = messages.length - 1; i >= 0 && removed < 2; i--) {
+                    messages[i].remove();
+                    removed++;
+                }
+                
+                // 이전 단계로 이동
+                this.state.step = lastState.step;
+                this.showQuestion(lastState.step, true);
+            },
+
+            showQuestion(idx, isBack = false) {
                 const q = this.questions[idx];
                 if (!q) return this.submitAnswers();
+                
                 this.state.step = idx;
+                
                 if (q.progressText) {
                     const [c, t] = q.progressText.match(/\d+/g);
                     this.elements.progressFill.style.width = (c / t * 100) + '%';
                     this.elements.progressText.textContent = q.progressText;
+                } else {
+                    this.elements.progressFill.style.width = '0%';
+                    this.elements.progressText.textContent = '시작하기';
                 }
+
+                if (isBack) {
+                    this.renderInput(q);
+                    return;
+                }
+
                 this.showTyping();
                 setTimeout(() => {
                     this.hideTyping();
@@ -322,13 +386,23 @@
 
             renderInput(q) {
                 this.elements.inputArea.innerHTML = '';
-                if (q.type === 'single') this.renderSingle(q);
-                else if (q.type === 'multi') this.renderMulti(q);
-                else if (q.type === 'region') this.renderRegion(q);
-                else if (q.type === 'birthGender') this.renderBirthGender(q);
+                const canGoBack = this.state.history.length > 0;
+                
+                if (q.type === 'single') this.renderSingle(q, canGoBack);
+                else if (q.type === 'multi') this.renderMulti(q, canGoBack);
+                else if (q.type === 'region') this.renderRegion(q, canGoBack);
+                else if (q.type === 'birthGender') this.renderBirthGender(q, canGoBack);
             },
 
-            renderSingle(q) {
+            createBackBtn() {
+                const btn = document.createElement('button');
+                btn.className = 'back-btn';
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>이전';
+                btn.onclick = () => this.goBack();
+                return btn;
+            },
+
+            renderSingle(q, canGoBack) {
                 const c = document.createElement('div');
                 c.className = 'options-grid ' + (q.gridClass || '');
                 q.options.forEach(o => {
@@ -336,6 +410,9 @@
                     b.className = 'option-btn';
                     b.innerHTML = o.sub ? o.label + '<span class="sub-text">' + o.sub + '</span>' : o.label;
                     b.onclick = () => {
+                        // 히스토리 저장
+                        this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
+                        
                         this.addUserMessage(o.label);
                         this.state.answers[q.id] = o.value;
                         this.next();
@@ -343,9 +420,16 @@
                     c.appendChild(b);
                 });
                 this.elements.inputArea.appendChild(c);
+                
+                if (canGoBack) {
+                    const btnGroup = document.createElement('div');
+                    btnGroup.className = 'btn-group';
+                    btnGroup.appendChild(this.createBackBtn());
+                    this.elements.inputArea.appendChild(btnGroup);
+                }
             },
 
-            renderMulti(q) {
+            renderMulti(q, canGoBack) {
                 const c = document.createElement('div');
                 c.className = 'options-grid ' + (q.gridClass || '');
                 const sel = new Set();
@@ -370,21 +454,32 @@
                     };
                     c.appendChild(b);
                 });
+                
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'btn-group';
+                
+                if (canGoBack) {
+                    btnGroup.appendChild(this.createBackBtn());
+                }
+                
                 const conf = document.createElement('button');
                 conf.className = 'confirm-btn';
                 conf.textContent = '선택 완료';
                 conf.disabled = true;
                 conf.onclick = () => {
+                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
                     const labels = [...sel].map(v => q.options.find(x => x.value === v)?.label || v);
                     this.addUserMessage(labels.join(', '));
                     this.state.answers[q.id] = [...sel];
                     this.next();
                 };
+                btnGroup.appendChild(conf);
+                
                 this.elements.inputArea.appendChild(c);
-                this.elements.inputArea.appendChild(conf);
+                this.elements.inputArea.appendChild(btnGroup);
             },
 
-            renderRegion(q) {
+            renderRegion(q, canGoBack) {
                 const c = document.createElement('div');
                 c.className = 'select-wrap';
                 const s1 = document.createElement('select');
@@ -403,31 +498,51 @@
                     conf.disabled = true;
                 };
                 s2.onchange = () => { conf.disabled = !s2.value; };
+                
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'btn-group';
+                
+                if (canGoBack) {
+                    btnGroup.appendChild(this.createBackBtn());
+                }
+                
                 const conf = document.createElement('button');
                 conf.className = 'confirm-btn';
                 conf.textContent = '선택 완료';
                 conf.disabled = true;
                 conf.onclick = () => {
+                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
                     this.addUserMessage(s1.value + ' ' + s2.value);
                     this.state.answers[q.id] = { sido: s1.value, gugun: s2.value };
                     this.next();
                 };
+                btnGroup.appendChild(conf);
+                
                 c.appendChild(s1);
                 c.appendChild(s2);
                 this.elements.inputArea.appendChild(c);
-                this.elements.inputArea.appendChild(conf);
+                this.elements.inputArea.appendChild(btnGroup);
             },
 
-            renderBirthGender(q) {
+            renderBirthGender(q, canGoBack) {
                 const c = document.createElement('div');
                 c.className = 'birth-wrap';
                 c.innerHTML = '<div class="birth-section"><div class="birth-label">생년월일</div><div class="birth-row"><div class="birth-input-wrap year"><input type="number" class="birth-input" id="yearInput" placeholder="1990" min="1900" max="2025"></div><span class="birth-suffix">년</span><div class="birth-input-wrap"><input type="number" class="birth-input" id="monthInput" placeholder="1" min="1" max="12"></div><span class="birth-suffix">월</span><div class="birth-input-wrap"><input type="number" class="birth-input" id="dayInput" placeholder="1" min="1" max="31"></div><span class="birth-suffix">일</span></div></div><div class="birth-section"><div class="birth-label">성별</div><div class="gender-btns" id="genderBtns"><button class="option-btn" data-g="M">남성</button><button class="option-btn" data-g="F">여성</button></div></div>';
                 this.elements.inputArea.appendChild(c);
+                
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'btn-group';
+                
+                if (canGoBack) {
+                    btnGroup.appendChild(this.createBackBtn());
+                }
+                
                 const conf = document.createElement('button');
                 conf.className = 'confirm-btn';
                 conf.textContent = '선택 완료';
                 conf.disabled = true;
-                this.elements.inputArea.appendChild(conf);
+                btnGroup.appendChild(conf);
+                this.elements.inputArea.appendChild(btnGroup);
 
                 const yI = document.getElementById('yearInput');
                 const mI = document.getElementById('monthInput');
@@ -449,6 +564,7 @@
                     };
                 });
                 conf.onclick = () => {
+                    this.state.history.push({ step: this.state.step, answer: this.state.answers[q.id] });
                     this.addUserMessage(yI.value + '년 ' + mI.value.padStart(2, '0') + '월 ' + dI.value.padStart(2, '0') + '일, ' + (gender === 'M' ? '남성' : '여성'));
                     this.state.answers[q.id] = { year: yI.value, month: mI.value.padStart(2, '0'), day: dI.value.padStart(2, '0'), gender };
                     this.next();
@@ -468,8 +584,6 @@
                 this.showTyping();
 
                 try {
-                    console.log('Submitting:', this.state.answers);
-                    
                     const res = await fetch(CONFIG.API_PROXY_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -479,11 +593,10 @@
                     if (!res.ok) throw new Error('API 오류: ' + res.status);
                     
                     const data = await res.json();
-                    console.log('Response:', data);
-
                     if (data.error) throw new Error(data.message || 'API 오류');
 
-                    this.state.allServices = data.services || [];
+                    // 최대 1000개 제한
+                    this.state.allServices = (data.services || []).slice(0, CONFIG.MAX_ITEMS);
                     this.state.totalCount = data.totalCount || 0;
                     this.state.currentPage = 1;
 
@@ -502,14 +615,24 @@
                 const perPage = CONFIG.ITEMS_PER_PAGE;
                 const totalPages = Math.ceil(allServices.length / perPage);
                 const start = (currentPage - 1) * perPage;
-                const end = start + perPage;
+                const end = Math.min(start + perPage, allServices.length);
                 const pageServices = allServices.slice(start, end);
 
                 let html = '';
                 if (totalCount === 0 || allServices.length === 0) {
                     html = '<div class="no-result"><div class="no-result-icon">🔍</div><div class="no-result-title">검색 결과가 없습니다</div><div class="no-result-desc">선택하신 조건에 맞는 지원금이 없습니다.</div></div>';
                 } else {
-                    html = '<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">' + totalCount.toLocaleString() + '</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">' + (start + 1) + '-' + Math.min(end, allServices.length) + '</div><div class="stat-label">/ ' + allServices.length + '개 표시</div></div></div>';
+                    // 통계
+                    html = '<div class="result-stats"><div class="stat-card highlight"><div class="stat-number">' + totalCount.toLocaleString() + '</div><div class="stat-label">검색된 지원금</div></div><div class="stat-card"><div class="stat-number">' + allServices.length.toLocaleString() + '</div><div class="stat-label">표시 가능 (최대 1,000개)</div></div></div>';
+                    
+                    // 상단 네비게이션 (이전/다음 페이지)
+                    html += '<div class="top-nav">';
+                    html += '<button class="top-nav-btn" data-action="prev"' + (currentPage === 1 ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>이전 페이지</button>';
+                    html += '<span class="top-nav-info">' + currentPage + ' / ' + totalPages + ' 페이지</span>';
+                    html += '<button class="top-nav-btn" data-action="next"' + (currentPage === totalPages ? ' disabled' : '') + '>다음 페이지<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>';
+                    html += '</div>';
+                    
+                    // 결과 목록
                     html += '<div class="result-list">';
                     pageServices.forEach((s, i) => {
                         const gIdx = start + i;
@@ -521,7 +644,6 @@
                         const detailLink = s.servDtlLink || '';
                         const isRec = s._matchScore > 0 && gIdx < 5;
 
-                        // 자세히 보기 링크 결정
                         let link = '';
                         if (detailLink && detailLink.startsWith('http')) {
                             link = detailLink;
@@ -531,7 +653,7 @@
 
                         html += '<div class="result-card' + (isRec ? ' recommended' : '') + '">';
                         html += '<span class="result-badge">' + category + '</span>';
-                        html += '<h4 class="result-title">' + name + '</h4>';
+                        html += '<h4 class="result-title">' + (gIdx + 1) + '. ' + name + '</h4>';
                         if (org) html += '<p class="result-org">' + org + '</p>';
                         if (desc) html += '<p class="result-desc">' + desc + '</p>';
                         if (link) {
@@ -541,34 +663,54 @@
                     });
                     html += '</div>';
 
+                    // 하단 페이지 번호
                     if (totalPages > 1) {
                         html += '<div class="pagination">';
-                        html += '<button class="page-btn" data-p="prev"' + (currentPage === 1 ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>';
-                        html += '<div class="page-numbers">';
-                        let sp = Math.max(1, currentPage - 2);
-                        let ep = Math.min(totalPages, sp + 4);
-                        if (ep - sp < 4) sp = Math.max(1, ep - 4);
-                        for (let i = sp; i <= ep; i++) {
-                            html += '<button class="page-btn' + (i === currentPage ? ' active' : '') + '" data-p="' + i + '">' + i + '</button>';
+                        
+                        // 첫 페이지
+                        if (currentPage > 3) {
+                            html += '<button class="page-btn" data-page="1">1</button>';
+                            if (currentPage > 4) html += '<span class="page-btn ellipsis">...</span>';
                         }
-                        html += '</div>';
-                        html += '<button class="page-btn" data-p="next"' + (currentPage === totalPages ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>';
+                        
+                        // 현재 페이지 주변
+                        for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                            html += '<button class="page-btn' + (i === currentPage ? ' active' : '') + '" data-page="' + i + '">' + i + '</button>';
+                        }
+                        
+                        // 마지막 페이지
+                        if (currentPage < totalPages - 2) {
+                            if (currentPage < totalPages - 3) html += '<span class="page-btn ellipsis">...</span>';
+                            html += '<button class="page-btn" data-page="' + totalPages + '">' + totalPages + '</button>';
+                        }
+                        
                         html += '</div>';
                     }
                 }
 
                 this.elements.modalBody.innerHTML = html;
                 
-                // 페이지네이션 이벤트
+                // 상단 네비 이벤트
+                const topNav = this.elements.modalBody.querySelector('.top-nav');
+                if (topNav) {
+                    topNav.onclick = (e) => {
+                        const btn = e.target.closest('.top-nav-btn');
+                        if (!btn || btn.disabled) return;
+                        const action = btn.dataset.action;
+                        if (action === 'prev') this.state.currentPage = Math.max(1, this.state.currentPage - 1);
+                        else if (action === 'next') this.state.currentPage = Math.min(totalPages, this.state.currentPage + 1);
+                        this.renderModal();
+                        this.elements.modalBody.scrollTop = 0;
+                    };
+                }
+                
+                // 하단 페이지 번호 이벤트
                 const pag = this.elements.modalBody.querySelector('.pagination');
                 if (pag) {
                     pag.onclick = (e) => {
                         const btn = e.target.closest('.page-btn');
-                        if (!btn || btn.disabled) return;
-                        const p = btn.dataset.p;
-                        if (p === 'prev') this.state.currentPage = Math.max(1, this.state.currentPage - 1);
-                        else if (p === 'next') this.state.currentPage = Math.min(totalPages, this.state.currentPage + 1);
-                        else this.state.currentPage = parseInt(p);
+                        if (!btn || btn.classList.contains('ellipsis') || btn.classList.contains('active')) return;
+                        this.state.currentPage = parseInt(btn.dataset.page);
                         this.renderModal();
                         this.elements.modalBody.scrollTop = 0;
                     };
